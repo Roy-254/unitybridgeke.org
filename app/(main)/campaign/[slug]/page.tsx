@@ -41,7 +41,7 @@ export default async function CampaignDetailPage({ params }: PageProps) {
 
     // Demo fallback so you can see the UI without Supabase configured
     if (!campaign) {
-        if (slug === "every-kid-studies" || slug === "clearing-hospital-bills" || slug === "impacting-lives" || slug === "sisters-shield") {
+        if (slug === "every-kid-studies" || slug === "clearing-hospital-bills" || slug === "impacting-lives" || slug === "sisters-shield" || slug === "restoring-our-environment") {
             campaign = DEMO_CAMPAIGNS[slug] ?? DEMO_CAMPAIGNS["every-kid-studies"];
         } else {
             notFound();
@@ -53,6 +53,37 @@ export default async function CampaignDetailPage({ params }: PageProps) {
 
 // ─── Demo campaigns for development (no Supabase required) ───
 const DEMO_CAMPAIGNS: Record<string, any> = {
+    "restoring-our-environment": {
+        id: "demo-5",
+        title: "Restoring Our Environment",
+        slug: "restoring-our-environment",
+        category: "community",
+        county: "Kenya",
+        story: `Across Kenya, informal dumpsites have taken hold in open fields and neglected areas. Roadside drainage channels are often choked with rubbish, becoming flood hazards during the rainy season. Meanwhile, many public parks, markets, and schools go without the basic upkeep they deserve.
+
+Through our Restoring Our Environment initiative, we organise coordinated, volunteer-led clean-up drives that tackle these challenges. Every shilling raised funds equipment, protective gear, transport, and materials for our teams on the ground.
+
+We focus on three areas of action:
+1. Open-Area Litter Collection: Removing solid waste from open fields and informal dumpsites, rescuing shared spaces for the community.
+2. Drainage Channel Restoration: Clearing roadside drains of debris and rubbish to ensure water flows freely, preventing flooding and water damage.
+3. Public Space Revitalisation: Deep-cleaning and repairing schools, markets, and parks to restore dignity to public facilities.
+
+Litter and blocked drains are not just eyesores — they are public health hazards. Stagnant water breeds mosquitoes. Overflowing waste contaminates water sources. Neglected public spaces breed insecurity. Our clean-up drives create immediate, visible impact that communities can see and feel, building a culture of environmental stewardship.`,
+        current_amount: 0,
+        target_amount: 800000,
+        deadline: null,
+        created_at: "2026-02-15T09:00:00Z",
+        view_count: 540,
+        is_verified: true,
+        creator: { id: "u5", full_name: "Unity Bridge Kenya", is_verified: true, county: "Nairobi" },
+        images: [
+            { storage_url: "/environment-hero.png", order_index: 0 },
+            { storage_url: "/volunteers-cleaning.png", order_index: 1 },
+        ],
+        documents: [],
+        updates: [],
+        donations: [],
+    },
     "sisters-shield": {
         id: "demo-4",
         title: "The Sisters' Shield Initiative",
