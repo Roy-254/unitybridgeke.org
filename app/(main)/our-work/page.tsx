@@ -102,6 +102,14 @@ export default function OurWorkPage() {
                     <div className="grid sm:grid-cols-3 gap-6">
                         {[
                             {
+                                slug: "clearing-hospital-bills",
+                                title: "Clearing hospital bills",
+                                category: "Medical Relief",
+                                img: "/medical-relief-project.png",
+                                raised: "KES 180,000",
+                                goal: "KES 500,000",
+                            },
+                            {
                                 slug: "every-kid-studies",
                                 title: "Making sure every kid studies",
                                 category: "School Fees",
@@ -110,12 +118,12 @@ export default function OurWorkPage() {
                                 goal: "KES 500,000",
                             },
                             {
-                                slug: "clearing-hospital-bills",
-                                title: "Clearing hospital bills",
-                                category: "Medical Relief",
-                                img: "/medical-relief-project.png",
-                                raised: "KES 180,000",
-                                goal: "KES 500,000",
+                                slug: "sisters-shield",
+                                title: "The Sisters' Shield Initiative",
+                                category: "Women's Empowerment",
+                                img: "/sisters-shield.png",
+                                raised: "KES 0",
+                                goal: "KES 1,000,000",
                             },
                             {
                                 slug: "impacting-lives",
@@ -132,14 +140,6 @@ export default function OurWorkPage() {
                                 img: "/environment-hero.png",
                                 raised: "KES 0",
                                 goal: "KES 800,000",
-                            },
-                            {
-                                slug: "sisters-shield",
-                                title: "The Sisters' Shield Initiative",
-                                category: "Women's Empowerment",
-                                img: "/sisters-shield.png",
-                                raised: "KES 0",
-                                goal: "KES 1,000,000",
                             },
                         ].map(project => (
                             <Link key={project.slug} href={`/donate/${project.slug}`}

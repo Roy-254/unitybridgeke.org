@@ -21,6 +21,18 @@ export default function ExploreProjectsPage() {
     // Mock data — to be replaced by Supabase call
     const projects: any[] = [
         {
+            id: "2",
+            title: "Clearing hospital bills",
+            description: "Supporting families burdened by medical debt, ensuring quality healthcare is accessible without financial ruin.",
+            category: "medical",
+            slug: "clearing-hospital-bills",
+            images: ["/medical-relief-project.png"],
+            current_amount: 180000,
+            target_amount: 500000,
+            is_urgent: false,
+            view_count: 89
+        },
+        {
             id: "1",
             title: "Making sure every kid studies",
             description: "Providing tuition support and learning materials to help underprivileged students stay in school and unlock their potential.",
@@ -33,7 +45,19 @@ export default function ExploreProjectsPage() {
             view_count: 45
         },
         {
-            id: "2",
+            id: "5",
+            title: "The Sisters' Shield Initiative",
+            description: "Helping women overcome barriers by providing access to education, safe transitions, and financial support for a more secure and empowered future",
+            category: "women_empowerment",
+            slug: "sisters-shield",
+            images: ["/sisters-shield.png"],
+            current_amount: 0,
+            target_amount: 1000000,
+            is_urgent: true,
+            view_count: 0
+        },
+        {
+            id: "3",
             title: "Impacting lives of the less privileged",
             description: "Community-led initiatives providing essential resources and sustainable support for vulnerable families across Kenya.",
             category: "community",
@@ -45,18 +69,6 @@ export default function ExploreProjectsPage() {
             view_count: 120
         },
         {
-            id: "3",
-            title: "Clearing hospital bills",
-            description: "Supporting families burdened by medical debt, ensuring quality healthcare is accessible without financial ruin.",
-            category: "medical",
-            slug: "clearing-hospital-bills",
-            images: ["/medical-relief-project.png"],
-            current_amount: 180000,
-            target_amount: 500000,
-            is_urgent: false,
-            view_count: 89
-        },
-        {
             id: "4",
             title: "Restoring Our Environment",
             description: "Cleaning up Kenya — collecting litter from informal dumpsites, unclogging roadside drainage channels, and revitalising public parks, markets, schools, and community buildings.",
@@ -66,18 +78,6 @@ export default function ExploreProjectsPage() {
             current_amount: 0,
             target_amount: 800000,
             is_urgent: false,
-            view_count: 0
-        },
-        {
-            id: "5",
-            title: "The Sisters' Shield Initiative",
-            description: "Helping women overcome barriers by providing access to education, safe transitions, and financial support for a more secure and empowered future",
-            category: "women_empowerment",
-            slug: "sisters-shield",
-            images: ["/sisters-shield.png"],
-            current_amount: 0,
-            target_amount: 1000000,
-            is_urgent: true,
             view_count: 0
         }
     ];

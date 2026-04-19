@@ -31,6 +31,18 @@ interface FeaturedProject {
 
 const MOCK_PROJECTS: FeaturedProject[] = [
     {
+        id: "2",
+        slug: "clearing-hospital-bills",
+        title: "Clearing hospital bills",
+        description: "Supporting families burdened by medical debt, ensuring quality healthcare is accessible without financial ruin.",
+        category: "medical",
+        current_amount: 180000,
+        target_amount: 500000,
+        creator: { full_name: "Unity Bridge Kenya" },
+        images: [{ storage_url: "/medical-relief-project.png", order_index: 0 }],
+        donations: Array(67).fill({ id: "x" }),
+    },
+    {
         id: "1",
         slug: "every-kid-studies",
         title: "Making sure every kid studies",
@@ -43,16 +55,16 @@ const MOCK_PROJECTS: FeaturedProject[] = [
         donations: Array(45).fill({ id: "x" }),
     },
     {
-        id: "2",
-        slug: "clearing-hospital-bills",
-        title: "Clearing hospital bills",
-        description: "Supporting families burdened by medical debt, ensuring quality healthcare is accessible without financial ruin.",
-        category: "medical",
-        current_amount: 180000,
-        target_amount: 500000,
+        id: "5",
+        slug: "sisters-shield",
+        title: "The Sisters' Shield Initiative",
+        description: "Helping women overcome barriers by providing access to education, safe transitions, and financial support for a more secure and empowered future",
+        category: "women_empowerment",
+        current_amount: 0,
+        target_amount: 1000000,
         creator: { full_name: "Unity Bridge Kenya" },
-        images: [{ storage_url: "/medical-relief-project.png", order_index: 0 }],
-        donations: Array(67).fill({ id: "x" }),
+        images: [{ storage_url: "/sisters-shield.png", order_index: 0 }],
+        donations: [],
     },
     {
         id: "3",
@@ -77,18 +89,6 @@ const MOCK_PROJECTS: FeaturedProject[] = [
         creator: { full_name: "Unity Bridge Kenya" },
         images: [{ storage_url: "/environment-hero.png", order_index: 0 }],
         donations: Array(0).fill({ id: "x" }),
-    },
-    {
-        id: "5",
-        slug: "sisters-shield",
-        title: "The Sisters' Shield Initiative",
-        description: "Helping women overcome barriers by providing access to education, safe transitions, and financial support for a more secure and empowered future",
-        category: "women_empowerment",
-        current_amount: 0,
-        target_amount: 1000000,
-        creator: { full_name: "Unity Bridge Kenya" },
-        images: [{ storage_url: "/sisters-shield.png", order_index: 0 }],
-        donations: [],
     },
 ];
 

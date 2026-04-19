@@ -75,10 +75,10 @@ const DEMO: TransparencyData = {
         { id: "u2", title: "Emergency Relief Distribution", content: "Essential supplies reached 10 families today in our latest community outreach.", photo_url: "/environment-hero.png", created_at: new Date(Date.now() - 172800000).toISOString(), campaign: { title: "Community Water Project", slug: "community-water", category: "community" } },
     ],
     activeCampaigns: [
-        { id: "1", title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/school-fees-project.png", order_index: 0 }] },
         { id: "2", title: "Medical Emergency Fund", slug: "clearing-hospital-bills", category: "medical", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/medical-relief-project.png", order_index: 0 }] },
-        { id: "3", title: "Community Water Project", slug: "community-water", category: "community", current_amount: 0, target_amount: 800000, images: [{ storage_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800", order_index: 0 }] },
+        { id: "1", title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/school-fees-project.png", order_index: 0 }] },
         { id: "4", title: "The Sisters' Shield Initiative", slug: "sisters-shield", category: "women_empowerment", current_amount: 50000, target_amount: 1000000, images: [{ storage_url: "/sisters-shield.png", order_index: 0 }] },
+        { id: "3", title: "Community Water Project", slug: "community-water", category: "community", current_amount: 0, target_amount: 800000, images: [{ storage_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800", order_index: 0 }] },
     ],
 };
 
