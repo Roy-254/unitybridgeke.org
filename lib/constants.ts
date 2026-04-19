@@ -4,9 +4,9 @@
 export const CAMPAIGN_CATEGORIES = {
     SCHOOL_FEES: "school_fees",
     MEDICAL: "medical",
+    WOMEN_EMPOWERMENT: "women_empowerment",
     EMERGENCY: "emergency",
     COMMUNITY: "community",
-    WOMEN_EMPOWERMENT: "women_empowerment",
     OTHER: "other",
 } as const;
 
@@ -15,18 +15,18 @@ export type CampaignCategory = typeof CAMPAIGN_CATEGORIES[keyof typeof CAMPAIGN_
 export const CATEGORY_LABELS: Record<CampaignCategory, string> = {
     school_fees: "School Fees",
     medical: "Medical",
+    women_empowerment: "Women's Empowerment",
     emergency: "Emergency",
     community: "Community",
-    women_empowerment: "Women's Empowerment",
     other: "Other",
 };
 
 export const CATEGORY_COLORS: Record<CampaignCategory, string> = {
     school_fees: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
     medical: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+    women_empowerment: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
     emergency: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
     community: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-    women_empowerment: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
     other: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300",
 };
 

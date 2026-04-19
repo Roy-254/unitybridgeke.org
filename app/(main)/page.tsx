@@ -126,6 +126,7 @@ export default async function HomePage() {
     const focusAreas = [
         { name: "School Fees", slug: "school_fees", icon: GraduationCap, color: "text-blue-600", bgColor: "bg-blue-100 dark:bg-blue-900/30" },
         { name: "Medical Bills", slug: "medical", icon: Stethoscope, color: "text-red-600", bgColor: "bg-red-100 dark:bg-red-900/30" },
+        { name: "Women's Empowerment", slug: "women_empowerment", icon: Heart, color: "text-rose-600", bgColor: "bg-rose-100 dark:bg-rose-900/30" },
         { name: "Emergency", slug: "emergency", icon: AlertCircle, color: "text-orange-600", bgColor: "bg-orange-100 dark:bg-orange-900/30" },
         { name: "Community", slug: "community", icon: Building2, color: "text-green-600", bgColor: "bg-green-100 dark:bg-green-900/30" },
     ];

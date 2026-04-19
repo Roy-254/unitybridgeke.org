@@ -11,6 +11,7 @@ export const metadata = {
 const FOCUS_AREAS = [
     { icon: GraduationCap, label: "School Fees", href: "/explore?category=school_fees", color: "text-purple-500 bg-purple-50 dark:bg-purple-900/20" },
     { icon: Stethoscope, label: "Medical Relief", href: "/explore?category=medical", color: "text-blue-500 bg-blue-50 dark:bg-blue-900/20" },
+    { icon: Heart, label: "Women's Empowerment", href: "/explore?category=women_empowerment", color: "text-rose-500 bg-rose-50 dark:bg-rose-900/20" },
     { icon: AlertCircle, label: "Emergency", href: "/explore?category=emergency", color: "text-red-500 bg-red-50 dark:bg-red-900/20" },
     { icon: Building2, label: "Community", href: "/explore?category=community", color: "text-green-500 bg-green-50 dark:bg-green-900/20" },
 ];
