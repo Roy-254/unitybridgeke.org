@@ -74,7 +74,7 @@ const MEGA_NAV: MegaMenu[] = [
         featured: {
             icon: TrendingUp,
             // Using the Our Projects image — community/giving scene
-            image: "/site-images/community-leaders.png",
+            image: "/site-images/community-leaders.webp",
             heading: "Lifting burdens, building futures",
             body: "Unity Bridge Kenya bridges the gap between donors and verified charitable initiatives — from school fees to emergency relief.",
             cta: { label: "Our Full Story", href: "/about" },
@@ -109,7 +109,7 @@ const MEGA_NAV: MegaMenu[] = [
         label: "Get Involved",
         featured: {
             icon: HandHeart,
-            image: "/site-images/volunteer-impact.png",
+            image: "/site-images/volunteer-impact.webp",
             heading: "Join us in making a difference",
             body: "Whether you donate, volunteer, or share — every action helps a Kenyan family overcome hardship. No act is too small.",
             cta: { label: "Donate Now", href: "/donate" },
@@ -149,7 +149,7 @@ const MEGA_NAV: MegaMenu[] = [
         label: "Impact",
         featured: {
             icon: Globe,
-            image: "/site-images/children-joy.png",
+            image: "/site-images/children-joy.webp",
             heading: "Real change, real people",
             body: "Track how donations are used and follow the progress of every project we fund. Transparency is at the heart of what we do.",
             cta: { label: "See Our Work", href: "/our-work" },
@@ -198,7 +198,7 @@ function CompactPanel({ menu, onClose, stayOpen, onLeave }: {
                 {menu.items.map(sub => {
                     const Icon = sub.icon;
                     return (
-                        <Link key={sub.href + sub.label} href={sub.href} onClick={onClose}
+                        <Link key={sub.href + sub.label} href={sub.href} onClick={onClose} prefetch={false}
                             className="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-[var(--bg-secondary)] transition-colors group">
                             <div className="w-8 h-8 rounded-lg bg-[var(--primary-green)]/10 flex items-center justify-center shrink-0 group-hover:bg-[var(--primary-green)]/20 transition-colors mt-0.5">
                                 <Icon className="w-4 h-4 text-[var(--primary-green)]" />
@@ -243,14 +243,13 @@ function MegaPanel({ menu, onClose }: { menu: MegaMenu; onClose: () => void }) {
                                 fill
                                 className="object-cover"
                                 sizes="280px"
-                                unoptimized
                             />
                             {/* Gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                             {/* Content — heading + CTA only */}
                             <div className="absolute inset-x-0 bottom-0 p-5">
                                 <h3 className="text-base font-extrabold text-white leading-snug mb-3">{menu.featured.heading}</h3>
-                                <Link href={menu.featured.cta.href} onClick={onClose} className="block">
+                                <Link href={menu.featured.cta.href} onClick={onClose} className="block" prefetch={false}>
                                     <span className="flex items-center justify-center w-full py-2 text-xs font-bold bg-[var(--primary-green)] hover:bg-[var(--primary-green)]/90 text-white rounded-lg transition-colors">
                                         {menu.featured.cta.label} →
                                     </span>
@@ -282,6 +281,7 @@ function MegaPanel({ menu, onClose }: { menu: MegaMenu; onClose: () => void }) {
                                         key={link.label}
                                         href={link.href}
                                         onClick={onClose}
+                                        prefetch={false}
                                         className="text-sm text-[var(--text-secondary)] hover:text-[var(--primary-green)] hover:translate-x-1 transition-all duration-150 py-1 font-medium"
                                     >
                                         {link.label}
@@ -347,7 +347,7 @@ export function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity shrink-0" onClick={() => setActiveDropdown(null)}>
                         <div className="relative w-9 h-9 xl:w-11 xl:h-11 shrink-0">
-                            <Image src="/logo 2.jpeg" alt="Unity Bridge Kenya" fill className="object-contain" priority />
+                            <Image src="/logo.webp" alt="Unity Bridge Kenya" fill className="object-contain" priority />
                         </div>
                         <div className="flex flex-col leading-tight">
                             <span className="text-base xl:text-lg font-bold text-[var(--text-primary)] whitespace-nowrap hidden sm:block">Unity Bridge Kenya</span>
@@ -363,6 +363,8 @@ export function Header() {
                                 <button
                                     key={item.label}
                                     onMouseEnter={() => openDropdown(item.label)}
+                                    aria-expanded={activeDropdown === item.label}
+                                    aria-haspopup="true"
                                     className={cn(
                                         "flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150",
                                         activeDropdown === item.label

@@ -79,11 +79,11 @@ export default function AboutPage() {
                         </div>
                         <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
                             <Image
-                                src="/site-images/community-unity.png"
+                                src="/site-images/community-unity.webp"
                                 alt="Community members coming together"
                                 fill
                                 className="object-cover"
-                                unoptimized
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                             <div className="absolute bottom-4 left-4 bg-[var(--primary-green)] text-white rounded-xl px-4 py-3">

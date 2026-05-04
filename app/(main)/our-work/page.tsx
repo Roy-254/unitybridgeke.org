@@ -83,7 +83,6 @@ export default function OurWorkPage() {
                                 alt="Community work in Kenya"
                                 fill
                                 className="object-cover"
-                                unoptimized
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                             <div className="absolute bottom-5 left-5 flex gap-4">
@@ -106,7 +105,7 @@ export default function OurWorkPage() {
                                 slug: "clearing-hospital-bills",
                                 title: "Clearing hospital bills",
                                 category: "Medical Relief",
-                                img: "/medical-relief-project.png",
+                                img: "/medical-relief-project.webp",
                                 raised: "KES 180,000",
                                 goal: "KES 500,000",
                             },
@@ -114,7 +113,7 @@ export default function OurWorkPage() {
                                 slug: "every-kid-studies",
                                 title: "Making sure every kid studies",
                                 category: "School Fees",
-                                img: "/school-fees-project.png",
+                                img: "/school-fees-project.webp",
                                 raised: "KES 350,000",
                                 goal: "KES 500,000",
                             },
@@ -122,7 +121,7 @@ export default function OurWorkPage() {
                                 slug: "sisters-shield",
                                 title: "The Sisters' Shield Initiative",
                                 category: "Women's Empowerment",
-                                img: "/sisters-shield.png",
+                                img: "/sisters-shield.webp",
                                 raised: "KES 0",
                                 goal: "KES 1,000,000",
                             },
@@ -138,7 +137,7 @@ export default function OurWorkPage() {
                                 slug: "restoring-our-environment",
                                 title: "Restoring Our Environment",
                                 category: "Community",
-                                img: "/environment-hero.png",
+                                img: "/environment-hero.webp",
                                 raised: "KES 0",
                                 goal: "KES 800,000",
                             },
@@ -146,7 +145,7 @@ export default function OurWorkPage() {
                             <Link key={project.slug} href={`/donate/${project.slug}`}
                                 className="group bg-[var(--bg-secondary)] border border-[var(--border-light)] rounded-2xl overflow-hidden hover:border-[var(--primary-green)]/40 transition-all">
                                 <div className="relative aspect-video">
-                                    <Image src={project.img} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
+                                    <Image src={project.img} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
                                 </div>
                                 <div className="p-5">
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--primary-green)]">{project.category}</span>

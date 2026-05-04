@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
             customizations: {
                 title: "Unity Bridge Kenya",
                 description: `Donation to campaign`,
-                logo: `${appUrl}/logo.png`,
+                logo: `${appUrl}/logo.webp`,
             },
             payment_options: payment_method === "mpesa" ? "mpesa" : "card,mpesa",
             meta: {

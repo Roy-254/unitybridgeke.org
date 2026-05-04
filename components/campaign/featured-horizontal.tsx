@@ -96,7 +96,7 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
                                                 alt={project.title}
                                                 fill
                                                 className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
-                                                unoptimized={coverImage.startsWith("https://images.unsplash.com") || coverImage.startsWith("/")}
+                                                sizes="(max-width: 768px) 300px, 420px"
                                             />
                                             <div className="absolute top-5 left-5">
                                                 <span className={`px-4 py-1.5 text-[9px] font-black rounded-full uppercase tracking-widest backdrop-blur-md shadow-lg border border-white/10 ${categoryColor}`}>

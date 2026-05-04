@@ -64,7 +64,7 @@ export default function GetInvolvedPage() {
                                 alt="Giving to a cause"
                                 fill
                                 className="object-cover"
-                                unoptimized
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                         </div>
@@ -114,7 +114,7 @@ export default function GetInvolvedPage() {
                                 alt="Volunteers working together"
                                 fill
                                 className="object-cover"
-                                unoptimized
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                         </div>
                     </div>
@@ -151,7 +151,7 @@ export default function GetInvolvedPage() {
                         </div>
                         <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
                             <Image
-                                src="/organisational-partnership.png"
+                                src="/organisational-partnership.webp"
                                 alt="Community partnership"
                                 fill
                                 className="object-cover"

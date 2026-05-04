@@ -132,7 +132,7 @@ export function DonateClient({ campaign }: DonateClientProps) {
                         <div className="rounded-2xl border border-[var(--border-light)] overflow-hidden bg-[var(--bg-secondary)]">
                             {coverImage && (
                                 <div className="relative aspect-video">
-                                    <Image src={coverImage} alt={campaign.title} fill className="object-cover" unoptimized />
+                                    <Image src={coverImage} alt={campaign.title} fill className="object-cover" sizes="(max-width: 1280px) 100vw, 40vw" />
                                 </div>
                             )}
                             <div className="p-5 space-y-3">

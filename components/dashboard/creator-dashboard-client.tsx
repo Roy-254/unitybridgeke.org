@@ -144,7 +144,7 @@ export function CreatorDashboardClient({ campaigns, profile }: { campaigns: Camp
                                     {/* Cover thumbnail */}
                                     <div className="relative w-full md:w-48 aspect-video md:aspect-square shrink-0">
                                         {coverImage ? (
-                                            <Image src={coverImage} alt={campaign.title} fill className="object-cover" unoptimized />
+                                            <Image src={coverImage} alt={campaign.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 192px" />
                                         ) : (
                                             <div className="w-full h-full bg-[var(--bg-primary)] flex items-center justify-center text-[var(--text-muted)]">
                                                 <Target className="w-8 h-8" />

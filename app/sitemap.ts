@@ -8,8 +8,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const staticRoutes: MetadataRoute.Sitemap = [
         { url: appUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
         { url: `${appUrl}/explore`, lastModified: new Date(), changeFrequency: "hourly", priority: 0.9 },
-        { url: `${appUrl}/campaign/create`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-        { url: `${appUrl}/auth/sign-in`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+        { url: `${appUrl}/our-work`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
+        { url: `${appUrl}/transparency`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
+        { url: `${appUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+        { url: `${appUrl}/how-it-works`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+        { url: `${appUrl}/track`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+        { url: `${appUrl}/campaign/create`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+        { url: `${appUrl}/auth/sign-in`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
     ];
 
     // Fetch all active campaign slugs

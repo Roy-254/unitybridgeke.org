@@ -71,13 +71,13 @@ const DEMO: TransparencyData = {
         { id: "d4", donor_name: "M-Pesa Donor", amount: 1000, currency: "KES", created_at: new Date(Date.now() - 172800000).toISOString(), campaign: { title: "Education Support Initiative", slug: "every-kid-studies" } },
     ],
     recentUpdates: [
-        { id: "u1", title: "New Classroom Materials Delivered", content: "Thanks to your support, we've delivered textbooks and stationery to 50 students this week.", photo_url: "/school-fees-project.png", created_at: new Date().toISOString(), campaign: { title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees" } },
-        { id: "u2", title: "Emergency Relief Distribution", content: "Essential supplies reached 10 families today in our latest community outreach.", photo_url: "/environment-hero.png", created_at: new Date(Date.now() - 172800000).toISOString(), campaign: { title: "Community Water Project", slug: "community-water", category: "community" } },
+        { id: "u1", title: "New Classroom Materials Delivered", content: "Thanks to your support, we've delivered textbooks and stationery to 50 students this week.", photo_url: "/school-fees-project.webp", created_at: new Date().toISOString(), campaign: { title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees" } },
+        { id: "u2", title: "Emergency Relief Distribution", content: "Essential supplies reached 10 families today in our latest community outreach.", photo_url: "/environment-hero.webp", created_at: new Date(Date.now() - 172800000).toISOString(), campaign: { title: "Community Water Project", slug: "community-water", category: "community" } },
     ],
     activeCampaigns: [
-        { id: "2", title: "Medical Emergency Fund", slug: "clearing-hospital-bills", category: "medical", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/medical-relief-project.png", order_index: 0 }] },
-        { id: "1", title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/school-fees-project.png", order_index: 0 }] },
-        { id: "4", title: "The Sisters' Shield Initiative", slug: "sisters-shield", category: "women_empowerment", current_amount: 50000, target_amount: 1000000, images: [{ storage_url: "/sisters-shield.png", order_index: 0 }] },
+        { id: "2", title: "Medical Emergency Fund", slug: "clearing-hospital-bills", category: "medical", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/medical-relief-project.webp", order_index: 0 }] },
+        { id: "1", title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/school-fees-project.webp", order_index: 0 }] },
+        { id: "4", title: "The Sisters' Shield Initiative", slug: "sisters-shield", category: "women_empowerment", current_amount: 50000, target_amount: 1000000, images: [{ storage_url: "/sisters-shield.webp", order_index: 0 }] },
         { id: "3", title: "Community Water Project", slug: "community-water", category: "community", current_amount: 0, target_amount: 800000, images: [{ storage_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800", order_index: 0 }] },
     ],
 };
@@ -323,7 +323,7 @@ export default function TransparencyPage() {
                                 return (
                                     <div key={c.id} className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] overflow-hidden group hover:border-[var(--primary-green)]/40 transition-colors">
                                         {img ? (
-                                            <div className="relative aspect-video"><Image src={img} alt={c.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized /></div>
+                                            <div className="relative aspect-video"><Image src={img} alt={c.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" /></div>
                                         ) : (
                                             <div className="aspect-video bg-[var(--bg-tertiary)] flex items-center justify-center">
                                                 <Heart className="w-10 h-10 text-[var(--text-muted)]" />
@@ -359,7 +359,7 @@ export default function TransparencyPage() {
                                 <div key={u.id} className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-5">
                                     {u.photo_url && (
                                         <div className="relative aspect-video rounded-xl overflow-hidden mb-4">
-                                            <Image src={u.photo_url} alt={u.title} fill className="object-cover" unoptimized />
+                                            <Image src={u.photo_url} alt={u.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                                         </div>
                                     )}
                                     {u.campaign && (

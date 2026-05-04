@@ -157,7 +157,7 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
                                         fill
                                         className="object-cover"
                                         priority
-                                        unoptimized
+                                        sizes="(max-width: 1280px) 100vw, 60vw"
                                     />
                                 </div>
                                 {sortedImages.length > 1 && (
@@ -173,7 +173,7 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
                                                         : "border-transparent opacity-60 hover:opacity-100"
                                                 )}
                                             >
-                                                <Image src={img.storage_url} alt={`Thumb ${idx}`} fill className="object-cover" unoptimized />
+                                                <Image src={img.storage_url} alt={`Thumb ${idx}`} fill className="object-cover" sizes="96px" />
                                             </button>
                                         ))}
                                     </div>

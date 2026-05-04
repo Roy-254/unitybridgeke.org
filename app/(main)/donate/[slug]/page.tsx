@@ -52,7 +52,7 @@ const DEMO_CAMPAIGNS: Record<string, any> = {
         slug: "every-kid-studies",
         current_amount: 350000,
         target_amount: 500000,
-        images: [{ storage_url: "/school-fees-project.png", order_index: 0 }],
+        images: [{ storage_url: "/school-fees-project.webp", order_index: 0 }],
         creator: { full_name: "Unity Bridge Kenya", is_verified: true }
     },
     "clearing-hospital-bills": {
@@ -61,7 +61,7 @@ const DEMO_CAMPAIGNS: Record<string, any> = {
         slug: "clearing-hospital-bills",
         current_amount: 180000,
         target_amount: 500000,
-        images: [{ storage_url: "/medical-relief-project.png", order_index: 0 }],
+        images: [{ storage_url: "/medical-relief-project.webp", order_index: 0 }],
         creator: { full_name: "Unity Bridge Kenya", is_verified: true }
     },
     "impacting-lives": {

@@ -19,12 +19,7 @@ interface FeaturedProject {
     title: string;
     category: string;
     county?: string;
-    current_amount: number;
-    target_amount: number;
-    deadline?: string;
-    creator?: { full_name: string };
     images?: { storage_url: string; order_index: number }[];
-    donations?: { id: string }[];
     description?: string;
 }
 
@@ -36,11 +31,7 @@ const MOCK_PROJECTS: FeaturedProject[] = [
         title: "Clearing hospital bills",
         description: "Supporting families burdened by medical debt, ensuring quality healthcare is accessible without financial ruin.",
         category: "medical",
-        current_amount: 180000,
-        target_amount: 500000,
-        creator: { full_name: "Unity Bridge Kenya" },
-        images: [{ storage_url: "/medical-relief-project.png", order_index: 0 }],
-        donations: Array(67).fill({ id: "x" }),
+        images: [{ storage_url: "/medical-relief-project.webp", order_index: 0 }],
     },
     {
         id: "1",
@@ -48,11 +39,7 @@ const MOCK_PROJECTS: FeaturedProject[] = [
         title: "Making sure every kid studies",
         description: "Providing tuition support and learning materials to help underprivileged students stay in school and unlock their potential.",
         category: "school_fees",
-        current_amount: 350000,
-        target_amount: 500000,
-        creator: { full_name: "Unity Bridge Kenya" },
-        images: [{ storage_url: "/school-fees-project.png", order_index: 0 }],
-        donations: Array(45).fill({ id: "x" }),
+        images: [{ storage_url: "/school-fees-project.webp", order_index: 0 }],
     },
     {
         id: "5",
@@ -60,11 +47,7 @@ const MOCK_PROJECTS: FeaturedProject[] = [
         title: "The Sisters' Shield Initiative",
         description: "Helping women overcome barriers by providing access to education, safe transitions, and financial support for a more secure and empowered future",
         category: "women_empowerment",
-        current_amount: 0,
-        target_amount: 1000000,
-        creator: { full_name: "Unity Bridge Kenya" },
-        images: [{ storage_url: "/sisters-shield.png", order_index: 0 }],
-        donations: [],
+        images: [{ storage_url: "/sisters-shield.webp", order_index: 0 }],
     },
     {
         id: "3",
@@ -72,11 +55,7 @@ const MOCK_PROJECTS: FeaturedProject[] = [
         title: "Impacting lives of the less privileged",
         description: "Community-led initiatives providing essential resources and sustainable support for vulnerable families across Kenya.",
         category: "community",
-        current_amount: 420000,
-        target_amount: 600000,
-        creator: { full_name: "Unity Bridge Kenya" },
         images: [{ storage_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&h=600&fit=crop", order_index: 0 }],
-        donations: Array(89).fill({ id: "x" }),
     },
     {
         id: "4",
@@ -84,11 +63,7 @@ const MOCK_PROJECTS: FeaturedProject[] = [
         title: "Restoring Our Environment",
         description: "Cleaning up Kenya — collecting litter from informal dumpsites, unclogging roadside drainage channels, and revitalising public parks, markets, schools, and community buildings.",
         category: "community",
-        current_amount: 0,
-        target_amount: 800000,
-        creator: { full_name: "Unity Bridge Kenya" },
-        images: [{ storage_url: "/environment-hero.png", order_index: 0 }],
-        donations: Array(0).fill({ id: "x" }),
+        images: [{ storage_url: "/environment-hero.webp", order_index: 0 }],
     },
 ];
 
@@ -161,13 +136,41 @@ export default async function HomePage() {
 
     return (
         <div className="space-y-0">
+            {/* Structured Data for SEO */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "NGO",
+                        "name": "Unity Bridge Kenya",
+                        "url": "https://unitybridgeke.org",
+                        "logo": "https://unitybridgeke.org/logo.webp",
+                        "description": "Lifting burdens, building futures. Supporting families burdened by medical debt and school fees in Kenya.",
+                        "address": {
+                            "@type": "PostalAddress",
+                            "addressCountry": "Kenya"
+                        },
+                        "contactPoint": {
+                            "@type": "ContactPoint",
+                            "telephone": "+254740797404",
+                            "contactType": "customer support"
+                        }
+                    })
+                }}
+            />
 
             {/* ── Hero ── */}
             <section className="relative py-20 md:py-32 overflow-hidden min-h-[560px] flex items-center">
-                {/* Background image */}
-                <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: "url('/hero-background.png')" }}
+                {/* Background image — using Next.js Image for optimization */}
+                <Image
+                    src="/hero-background.webp"
+                    alt=""
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="100vw"
+                    quality={80}
                 />
                 {/* Dark gradient overlay for readability */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />

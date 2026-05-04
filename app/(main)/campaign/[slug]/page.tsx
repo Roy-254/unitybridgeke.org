@@ -77,8 +77,8 @@ Litter and blocked drains are not just eyesores — they are public health hazar
         is_verified: true,
         creator: { id: "u5", full_name: "Unity Bridge Kenya", is_verified: true, county: "Nairobi" },
         images: [
-            { storage_url: "/environment-hero.png", order_index: 0 },
-            { storage_url: "/volunteers-cleaning.png", order_index: 1 },
+            { storage_url: "/environment-hero.webp", order_index: 0 },
+            { storage_url: "/volunteers-cleaning.webp", order_index: 1 },
         ],
         documents: [],
         updates: [],
@@ -105,7 +105,7 @@ Together, we are not just rebuilding lives; we are shielding the futures of Keny
         is_verified: true,
         creator: { id: "u4", full_name: "Unity Bridge Kenya", is_verified: true, county: "Nairobi" },
         images: [
-            { storage_url: "/sisters-shield.png", order_index: 0 },
+            { storage_url: "/sisters-shield.webp", order_index: 0 },
         ],
         documents: [],
         updates: [],
@@ -132,7 +132,7 @@ We believe that sustained access to education is the single greatest investment 
         is_verified: false,
         creator: { id: "u1", full_name: "Unity Bridge Kenya", is_verified: false, county: "Nairobi" },
         images: [
-            { storage_url: "/school-fees-project.png", order_index: 0 },
+            { storage_url: "/school-fees-project.webp", order_index: 0 },
         ],
         documents: [],
         updates: [],
@@ -159,7 +159,7 @@ Your contribution helps free patients from hospital debt and restores dignity to
         is_verified: false,
         creator: { id: "u2", full_name: "Unity Bridge Kenya", is_verified: false, county: "Nairobi" },
         images: [
-            { storage_url: "/medical-relief-project.png", order_index: 0 },
+            { storage_url: "/medical-relief-project.webp", order_index: 0 },
         ],
         documents: [],
         updates: [],

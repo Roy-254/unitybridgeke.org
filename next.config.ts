@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
+        qualities: [75, 80],
         remotePatterns: [
             {
                 protocol: 'https',
@@ -16,6 +17,7 @@ const nextConfig = {
             },
         ],
     },
+    compress: true,
     output: 'standalone',
     experimental: {
         serverActions: {

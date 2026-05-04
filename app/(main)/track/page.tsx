@@ -8,8 +8,7 @@ import {
     Search, CheckCircle2, Clock, Loader2, AlertCircle,
     Heart, ArrowRight, BadgeCheck, FileText, TrendingUp
 } from "lucide-react";
-import { ProgressBar } from "@/components/ui/progress-bar";
-import { formatCurrency, calculatePercentage } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { CATEGORY_LABELS } from "@/lib/constants";
 
 // ─── Types ──────────────────────────────────────────────────
@@ -28,8 +27,6 @@ interface TrackResult {
         title: string;
         slug: string;
         category: string;
-        current_amount: number;
-        target_amount: number;
         story: string;
         images?: { storage_url: string; order_index: number }[];
         updates?: { id: string; title: string; content: string; created_at: string }[];
@@ -93,9 +90,6 @@ function TrackForm() {
 
     const statusCfg = result ? FUND_STATUS_CONFIG[result.fund_status] ?? FUND_STATUS_CONFIG.pending : null;
     const coverImage = result?.campaign?.images?.sort((a, b) => a.order_index - b.order_index)[0]?.storage_url;
-    const percentage = result?.campaign
-        ? calculatePercentage(result.campaign.current_amount, result.campaign.target_amount)
-        : 0;
 
     return (
         <div className="max-w-3xl mx-auto">
@@ -184,18 +178,13 @@ function TrackForm() {
                             <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] overflow-hidden">
                                 {coverImage && (
                                     <div className="relative aspect-video">
-                                        <Image src={coverImage} alt={result.campaign.title} fill className="object-cover" unoptimized />
+                                        <Image src={coverImage} alt={result.campaign.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 672px" />
                                     </div>
                                 )}
                                 <div className="p-6 space-y-4">
                                     <div>
                                         <h3 className="font-bold text-[var(--text-primary)] text-lg">{result.campaign.title}</h3>
                                         <p className="text-sm text-[var(--text-secondary)] mt-1 leading-relaxed line-clamp-3">{result.campaign.story}</p>
-                                    </div>
-                                    <ProgressBar current={result.campaign.current_amount} target={result.campaign.target_amount} size="md" />
-                                    <div className="flex justify-between text-sm font-bold">
-                                        <span className="text-[var(--primary-green)]">{percentage}% funded</span>
-                                        <span className="text-[var(--text-muted)]">{formatCurrency(result.campaign.current_amount)} raised</span>
                                     </div>
                                     <Link href={`/campaign/${result.campaign.slug}`}>
                                         <button className="w-full mt-2 h-11 rounded-xl border-2 border-[var(--primary-green)] text-[var(--primary-green)] font-bold text-sm hover:bg-[var(--primary-green)] hover:text-white transition-all flex items-center justify-center gap-2">
