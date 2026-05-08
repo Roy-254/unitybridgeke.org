@@ -59,7 +59,7 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
                     >
                         {projects.map((project) => {
                             const coverImage = getCoverImage(project.images);
-                            const categoryColor = CATEGORY_COLORS[project.category] ?? CATEGORY_COLORS.other;
+                            const categoryColor = CATEGORY_COLORS[project.category as keyof typeof CATEGORY_COLORS] ?? CATEGORY_COLORS.other;
                             const categoryLabel = CATEGORY_LABELS[project.category as keyof typeof CATEGORY_LABELS] ?? project.category;
 
                             return (
