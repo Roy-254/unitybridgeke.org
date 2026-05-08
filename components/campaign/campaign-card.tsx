@@ -6,6 +6,7 @@ import { MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/constants";
 import { Campaign } from "@/types";
+import { getCoverImage } from "@/lib/utils";
 
 interface CampaignCardProps {
     campaign: Campaign;
@@ -17,7 +18,7 @@ export function CampaignCard({ campaign }: CampaignCardProps) {
             <Card className="h-full overflow-hidden group border-[var(--border-light)] hover:border-[var(--primary-green)]/30">
                 <div className="relative h-48 overflow-hidden">
                     <Image
-                        src={campaign.images[0] || "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800"}
+                        src={getCoverImage(campaign.images)}
                         alt={campaign.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"

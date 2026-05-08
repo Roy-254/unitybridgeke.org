@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   # Next.js Application
@@ -25,7 +24,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME:-unity_bridge}
     volumes:
       - postgres_data:/var/lib/postgresql/data

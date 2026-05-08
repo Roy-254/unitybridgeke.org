@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { env } from "@/lib/env";
 
 // Use service-role key — this runs server-side only, never in browser
 const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 /** Generates a unique human-readable tracking code: UBK-YYYYMMDD-XXXX */
@@ -16,7 +17,7 @@ function generateConfirmationCode(): string {
 
 export async function POST(req: NextRequest) {
     // 1. Verify the webhook signature
-    const secretHash = process.env.FLW_SECRET_HASH;
+    const secretHash = env.FLW_SECRET_HASH;
     const signature = req.headers.get("verif-hash");
 
     if (!secretHash || signature !== secretHash) {
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
             // 2. Verify the transaction with Flutterwave to prevent replay attacks
             const verifyRes = await fetch(
                 `https://api.flutterwave.com/v3/transactions/${data.id}/verify`,
-                { headers: { Authorization: `Bearer ${process.env.FLW_SECRET_KEY}` } }
+                { headers: { Authorization: `Bearer ${env.FLW_SECRET_KEY}` } }
             );
             const verifyData = await verifyRes.json();
 
@@ -102,7 +103,7 @@ export async function POST(req: NextRequest) {
 
             // 6. Send email receipt with tracking code (fire-and-forget)
             if (donation.donor_email) {
-                fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/email/receipt`, {
+                fetch(`${env.NEXT_PUBLIC_APP_URL}/api/email/receipt`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({

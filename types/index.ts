@@ -30,7 +30,7 @@ export interface Campaign {
     current_amount: number;
     currency: "KES" | "USD";
     story: string;
-    images: string[];
+    images: { storage_url: string; order_index: number }[];
     supporting_documents?: string[];
     beneficiary_info?: Record<string, any>;
     county?: KenyanCounty;
@@ -75,7 +75,7 @@ export interface CampaignUpdate {
     campaign_id: string;
     title: string;
     content: string;
-    images?: string[];
+    images?: { storage_url: string; order_index: number }[];
     created_at: string;
 
     // Relations

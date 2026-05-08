@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { env } from "@/lib/env";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,13 +12,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const resendKey = process.env.RESEND_API_KEY;
+    const resendKey = env.RESEND_API_KEY;
     if (!resendKey) {
       console.warn("RESEND_API_KEY not set — skipping email");
       return NextResponse.json({ skipped: true });
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const appUrl = env.NEXT_PUBLIC_APP_URL;
     const formattedAmount = new Intl.NumberFormat("en-KE", {
       style: "currency",
       currency,

@@ -11,61 +11,7 @@ import Image from "next/image";
 import { getFeaturedCampaigns } from "@/lib/supabase/queries";
 import { CATEGORY_LABELS } from "@/lib/constants";
 import { FeaturedHorizontal } from "@/components/campaign/featured-horizontal";
-
-// ─── Types ──────────────────────────────────────────
-interface FeaturedProject {
-    id: string;
-    slug: string;
-    title: string;
-    category: string;
-    county?: string;
-    images?: { storage_url: string; order_index: number }[];
-    description?: string;
-}
-
-
-const MOCK_PROJECTS: FeaturedProject[] = [
-    {
-        id: "2",
-        slug: "clearing-hospital-bills",
-        title: "Clearing hospital bills",
-        description: "Supporting families burdened by medical debt, ensuring quality healthcare is accessible without financial ruin.",
-        category: "medical",
-        images: [{ storage_url: "/medical-relief-project.webp", order_index: 0 }],
-    },
-    {
-        id: "1",
-        slug: "every-kid-studies",
-        title: "Making sure every kid studies",
-        description: "Providing tuition support and learning materials to help underprivileged students stay in school and unlock their potential.",
-        category: "school_fees",
-        images: [{ storage_url: "/school-fees-project.webp", order_index: 0 }],
-    },
-    {
-        id: "5",
-        slug: "sisters-shield",
-        title: "The Sisters' Shield Initiative",
-        description: "Helping women overcome barriers by providing access to education, safe transitions, and financial support for a more secure and empowered future",
-        category: "women_empowerment",
-        images: [{ storage_url: "/sisters-shield.webp", order_index: 0 }],
-    },
-    {
-        id: "3",
-        slug: "impacting-lives",
-        title: "Impacting lives of the less privileged",
-        description: "Community-led initiatives providing essential resources and sustainable support for vulnerable families across Kenya.",
-        category: "community",
-        images: [{ storage_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&h=600&fit=crop", order_index: 0 }],
-    },
-    {
-        id: "4",
-        slug: "restoring-our-environment",
-        title: "Restoring Our Environment",
-        description: "Cleaning up Kenya — collecting litter from informal dumpsites, unclogging roadside drainage channels, and revitalising public parks, markets, schools, and community buildings.",
-        category: "community",
-        images: [{ storage_url: "/environment-hero.webp", order_index: 0 }],
-    },
-];
+import { MOCK_PROJECTS, type FeaturedProject } from "@/lib/mock-data";
 
 // ─── Helpers ─────────────────────────────────────────
 function getCoverImage(images?: { storage_url: string; order_index: number }[]): string {

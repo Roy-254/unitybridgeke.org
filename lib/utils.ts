@@ -188,6 +188,22 @@ export function shareOnTwitter(text: string, url: string): void {
 }
 
 /**
+ * Get the cover image for a campaign (lowest order_index)
+ */
+export function getCoverImage(images?: { storage_url: string; order_index: number }[] | string[]): string {
+    if (!images || images.length === 0) return "/placeholder-campaign.jpg";
+
+    // Handle array of strings (legacy/fallback)
+    if (typeof images[0] === "string") {
+        return images[0] as string;
+    }
+
+    // Handle structured objects
+    const structuredImages = images as { storage_url: string; order_index: number }[];
+    return [...structuredImages].sort((a, b) => a.order_index - b.order_index)[0].storage_url;
+}
+
+/**
  * Copy to clipboard
  */
 export async function copyToClipboard(text: string): Promise<boolean> {

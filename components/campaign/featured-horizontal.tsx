@@ -7,29 +7,9 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CATEGORY_LABELS } from "@/lib/constants";
-
-interface FeaturedProject {
-    id: string;
-    slug: string;
-    title: string;
-    category: string;
-    description?: string;
-    images?: { storage_url: string; order_index: number }[];
-}
-
-const CATEGORY_COLORS: Record<string, string> = {
-    school_fees: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-    medical: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
-    emergency: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
-    community: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
-    other: "bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-300",
-};
-
-function getCoverImage(images?: { storage_url: string; order_index: number }[]): string {
-    if (!images || images.length === 0) return "/placeholder-campaign.jpg";
-    return [...images].sort((a, b) => a.order_index - b.order_index)[0].storage_url;
-}
+import { CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/constants";
+import { getCoverImage } from "@/lib/utils";
+import { type FeaturedProject } from "@/lib/mock-data";
 
 export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }) {
     const targetRef = useRef<HTMLDivElement>(null);
