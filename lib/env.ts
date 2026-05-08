@@ -43,9 +43,12 @@ const parsed = envSchema.safeParse(processEnv);
 
 if (!parsed.success) {
     console.error('❌ Invalid environment variables:', parsed.error.flatten().fieldErrors);
-    // Only throw in production to avoid blocking dev if some keys are missing
-    if (process.env.NODE_ENV === 'production') {
-        throw new Error('Invalid environment variables');
+    
+    // Only throw at runtime in production. 
+    // We skip throwing during build (Vercel) or CI to allow the build to complete.
+    const isBuild = process.env.NEXT_PHASE === 'phase-production-build' || process.env.CI === 'true';
+    if (process.env.NODE_ENV === 'production' && !isBuild) {
+        throw new Error('Invalid environment variables. Please check your deployment settings.');
     }
 }
 
