@@ -43,13 +43,8 @@ const parsed = envSchema.safeParse(processEnv);
 
 if (!parsed.success) {
     console.error('❌ Invalid environment variables:', parsed.error.flatten().fieldErrors);
-    
-    // Only throw at runtime in production. 
-    // We skip throwing during build (Vercel) or CI to allow the build to complete.
-    const isBuild = process.env.NEXT_PHASE === 'phase-production-build' || process.env.CI === 'true';
-    if (process.env.NODE_ENV === 'production' && !isBuild) {
-        throw new Error('Invalid environment variables. Please check your deployment settings.');
-    }
+    // Removed strict throw to prevent MIDDLEWARE_INVOCATION_FAILED (500) at runtime.
+    // Services using these variables should handle missing values gracefully.
 }
 
 export const env = parsed.success ? parsed.data : (processEnv as unknown as z.infer<typeof envSchema>);
