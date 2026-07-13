@@ -10,6 +10,20 @@ interface MegaPanelProps {
     onClose: () => void;
 }
 
+const getDynamicShareHref = (href: string) => {
+    if (typeof window === "undefined") return href;
+    const origin = window.location.origin;
+    if (href.includes("wa.me")) {
+        return `https://api.whatsapp.com/send?text=${encodeURIComponent(
+            `Support Unity Bridge Kenya 🇰🇪 - Lifting burdens, building futures: ` + origin
+        )}`;
+    }
+    if (href.includes("facebook.com/sharer")) {
+        return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(origin)}`;
+    }
+    return href;
+};
+
 export function MegaPanel({ menu, onClose }: MegaPanelProps) {
     const colCount = menu.columns.length;
 
@@ -60,7 +74,7 @@ export function MegaPanel({ menu, onClose }: MegaPanelProps) {
                                 link.external ? (
                                     <a
                                         key={link.label}
-                                        href={link.href}
+                                        href={getDynamicShareHref(link.href)}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-sm text-[var(--text-secondary)] hover:text-[var(--primary-green)] hover:translate-x-1 transition-all duration-150 py-1 font-medium flex items-center gap-1"

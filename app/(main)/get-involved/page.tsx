@@ -5,6 +5,8 @@ import {
     ArrowRight, CheckCircle2, Megaphone
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ShareGrid } from "@/components/layout/share-grid";
+
 
 export const metadata = {
     title: "Get Involved | Unity Bridge Kenya",
@@ -191,44 +193,7 @@ export default function GetInvolvedPage() {
                     <p className="text-[var(--text-secondary)] leading-relaxed max-w-2xl mx-auto mb-10">
                         Sometimes the most powerful thing you can do is tell someone about us. Share Unity Bridge Kenya with your network and help us reach donors who want to give with confidence.
                     </p>
-                    <div className="grid sm:grid-cols-3 gap-5 text-left">
-                        {[
-                            {
-                                icon: "💬",
-                                title: "Share on WhatsApp",
-                                desc: "Send our link to your contacts, family groups, or church chats.",
-                                href: "https://wa.me/?text=Support+Unity+Bridge+Kenya+%F0%9F%87%B0%F0%9F%87%AA+https://unitybridgeke.org",
-                                external: true,
-                                label: "Share via WhatsApp",
-                            },
-                            {
-                                icon: "📘",
-                                title: "Share on Facebook",
-                                desc: "Post about a project you care about and tag us.",
-                                href: "https://facebook.com/sharer/sharer.php?u=https://unitybridgeke.org",
-                                external: true,
-                                label: "Share on Facebook",
-                            },
-                            {
-                                icon: "📧",
-                                title: "Tell Someone Today",
-                                desc: "Forward our website to a colleague, friend, or employer who gives.",
-                                href: "mailto:?subject=Support%20Unity%20Bridge%20Kenya&body=I%20thought%20you%27d%20want%20to%20know%20about%20this%20organisation%20doing%20great%20work%20in%20Kenya%3A%20https%3A%2F%2Funitybridgeke.org",
-                                external: true,
-                                label: "Share via Email",
-                            },
-                        ].map(({ icon, title, desc, href, label }) => (
-                            <a key={title} href={href} target="_blank" rel="noopener noreferrer"
-                                className="group p-5 bg-[var(--bg-secondary)] border border-[var(--border-light)] rounded-2xl hover:border-[var(--primary-green)]/40 transition-colors">
-                                <span className="text-3xl block mb-3">{icon}</span>
-                                <h3 className="font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--primary-green)] transition-colors">{title}</h3>
-                                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">{desc}</p>
-                                <span className="text-xs font-bold text-[var(--primary-green)] flex items-center gap-1">
-                                    {label} <ArrowRight className="w-3 h-3" />
-                                </span>
-                            </a>
-                        ))}
-                    </div>
+                    <ShareGrid />
                 </div>
             </section>
 

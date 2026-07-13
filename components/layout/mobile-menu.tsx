@@ -16,6 +16,20 @@ interface MobileMenuProps {
     useMegaMenu: boolean;
 }
 
+const getDynamicShareHref = (href: string) => {
+    if (typeof window === "undefined") return href;
+    const origin = window.location.origin;
+    if (href.includes("wa.me")) {
+        return `https://api.whatsapp.com/send?text=${encodeURIComponent(
+            `Support Unity Bridge Kenya 🇰🇪 - Lifting burdens, building futures: ` + origin
+        )}`;
+    }
+    if (href.includes("facebook.com/sharer")) {
+        return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(origin)}`;
+    }
+    return href;
+};
+
 export function MobileMenu({
     isOpen,
     onClose,
@@ -59,7 +73,7 @@ export function MobileMenu({
                                 <div className="ml-4 mb-2 space-y-0.5 animate-fade-in">
                                     {item.links.map(link =>
                                         link.external ? (
-                                            <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
+                                            <a key={link.label} href={getDynamicShareHref(link.href)} target="_blank" rel="noopener noreferrer"
                                                 className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-[var(--text-secondary)] hover:text-[var(--primary-green)] hover:bg-[var(--bg-secondary)] transition-colors">
                                                 <Icon className="w-4 h-4 shrink-0" />
                                                 {link.label} <span className="text-[10px] opacity-50">↗</span>
