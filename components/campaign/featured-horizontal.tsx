@@ -1,10 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/constants";
@@ -22,8 +22,45 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
     // Precision scroll: Stops exactly when the 4th tile is fully exposed on the right.
     const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(projects.length - 2) * 20}%`]);
 
+    const [showShareMenu, setShowShareMenu] = useState(false);
+    const [shareUrl, setShareUrl] = useState("https://unitybridgeke.org/#our-impact");
+    const [copied, setCopied] = useState(false);
+    const shareRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setShareUrl(`${window.location.origin}/#our-impact`);
+        }
+    }, []);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(e: MouseEvent) {
+            if (shareRef.current && !shareRef.current.contains(e.target as Node)) {
+                setShowShareMenu(false);
+            }
+        }
+        if (showShareMenu) document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [showShareMenu]);
+
+    const handleShareOption = (platform: string) => {
+        const text = "Check out the impact Unity Bridge Kenya is making — verified projects changing lives across Kenya!";
+        if (platform === "whatsapp") {
+            window.open(`https://wa.me/?text=${encodeURIComponent(`${text}\n\n${shareUrl}`)}`, "_blank");
+        } else if (platform === "facebook") {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank");
+        } else if (platform === "copy") {
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            });
+        }
+        if (platform !== "copy") setShowShareMenu(false);
+    };
+
     return (
-        <section ref={targetRef} className="relative h-[250vh] bg-[var(--bg-primary)]">
+        <section id="our-impact" ref={targetRef} className="relative h-[250vh] bg-[var(--bg-primary)]">
             {/* Header: Left-aligned text, right-aligned button, scrolls away naturally */}
             <div className="container-custom pt-16 pb-8">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-4">
@@ -34,13 +71,43 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
                             Verified projects needing your support right now.
                         </p>
                     </div>
-                    <div className="shrink-0">
+                    <div className="shrink-0 flex items-center gap-3">
                         <Link href="/explore">
                             <Button variant="outline" size="sm" className="rounded-full px-8 hover:bg-[var(--primary-green)] hover:text-white transition-all font-bold border-[var(--border-light)] text-[var(--text-primary)] h-11 text-xs group uppercase tracking-widest">
                                 View All Projects
                                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
+
+                        {/* Share button */}
+                        <div className="relative" ref={shareRef}>
+                            <button
+                                onClick={() => setShowShareMenu(prev => !prev)}
+                                aria-label="Share this section"
+                                className="w-11 h-11 rounded-full border border-[var(--border-light)] bg-transparent flex items-center justify-center text-[var(--text-secondary)] hover:border-[var(--primary-green)] hover:text-[var(--primary-green)] hover:bg-[var(--primary-green)]/8 transition-all duration-200"
+                            >
+                                <Share2 className="w-4 h-4" />
+                            </button>
+
+                            {showShareMenu && (
+                                <div className="absolute top-full right-0 mt-2 w-52 bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl shadow-2xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+                                    {[
+                                        { id: "whatsapp", label: "Share on WhatsApp", emoji: "💬" },
+                                        { id: "facebook", label: "Share on Facebook", emoji: "📘" },
+                                        { id: "copy", label: copied ? "Copied!" : "Copy Link", emoji: copied ? "✅" : "🔗" },
+                                    ].map(opt => (
+                                        <button
+                                            key={opt.id}
+                                            onClick={() => handleShareOption(opt.id)}
+                                            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-colors text-left"
+                                        >
+                                            <span className="text-base">{opt.emoji}</span>
+                                            {opt.label}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Heart, Facebook } from "lucide-react";
 
 export function Footer() {
     return (
@@ -44,12 +44,9 @@ export function Footer() {
                         <p className="text-sm text-[var(--text-secondary)] mb-2">support@unitybridgeke.org</p>
                         <p className="text-sm text-[var(--text-secondary)] mb-4">0740 797 404</p>
                         <div className="flex gap-3">
-                            <a href="https://wa.me/254740797404" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center hover:bg-[var(--primary-green)] hover:text-white transition-colors" aria-label="Chat with us on WhatsApp">
-                                <MessageCircle className="w-5 h-5" />
-                            </a>
-                            <a href="https://facebook.com/unitybridgekenya" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center hover:bg-[var(--primary-green)] hover:text-white transition-colors" aria-label="Follow us on Facebook">
-                                <Share2 className="w-5 h-5" />
-                            </a>
+                            <Link href="/get-involved#share" className="w-10 h-10 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center hover:bg-[var(--primary-green)] hover:text-white transition-colors" aria-label="Share options on Get Involved page">
+                                <Facebook className="w-5 h-5" />
+                            </Link>
                         </div>
                     </div>
                 </div>
