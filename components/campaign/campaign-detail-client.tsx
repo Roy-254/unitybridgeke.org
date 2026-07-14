@@ -15,6 +15,7 @@ import { formatDate, shareOnWhatsApp, shareOnFacebook } from "@/lib/utils";
 import { CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ReportModal } from "@/components/campaign/report-modal";
+import { WhatsAppIcon, FacebookIcon, InstagramIcon, TikTokIcon, CopyLinkIcon } from "@/components/ui/social-icons";
 
 interface Campaign {
     id: string;
@@ -56,6 +57,7 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
     const [activeImage, setActiveImage] = useState(0);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [showReportModal, setShowReportModal] = useState(false);
+    const [copiedPlatform, setCopiedPlatform] = useState<string | null>(null);
 
     const sortedImages = [...(campaign.images ?? [])].sort((a, b) => a.order_index - b.order_index);
     const campaignUrl = typeof window !== "undefined"
@@ -64,11 +66,29 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
 
     const handleShare = (platform: string) => {
         const text = `Help ${campaign.title} reach its goal on Unity Bridge Kenya!`;
-        if (platform === "whatsapp") shareOnWhatsApp(text, campaignUrl);
-        if (platform === "facebook") shareOnFacebook(campaignUrl);
-        if (platform === "copy") {
-            navigator.clipboard.writeText(campaignUrl);
+        if (platform === "whatsapp") {
+            shareOnWhatsApp(text, campaignUrl);
             setShowShareMenu(false);
+        } else if (platform === "facebook") {
+            shareOnFacebook(campaignUrl);
+            setShowShareMenu(false);
+        } else if (platform === "instagram") {
+            navigator.clipboard.writeText(campaignUrl).then(() => {
+                setCopiedPlatform("instagram");
+                window.open("https://www.instagram.com/", "_blank");
+                setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
+            });
+        } else if (platform === "tiktok") {
+            navigator.clipboard.writeText(campaignUrl).then(() => {
+                setCopiedPlatform("tiktok");
+                window.open("https://www.tiktok.com/", "_blank");
+                setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
+            });
+        } else if (platform === "copy") {
+            navigator.clipboard.writeText(campaignUrl).then(() => {
+                setCopiedPlatform("copy");
+                setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
+            });
         }
     };
 
@@ -104,19 +124,21 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
                             Share
                         </Button>
                         {showShareMenu && (
-                            <div className="absolute top-full right-0 mt-2 w-48 bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl shadow-2xl z-50 overflow-hidden">
+                            <div className="absolute top-full right-0 mt-2 w-56 bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl shadow-2xl z-50 overflow-hidden">
                                 {[
-                                    { id: "whatsapp", label: "Share on WhatsApp", emoji: "💬" },
-                                    { id: "facebook", label: "Share on Facebook", emoji: "📘" },
-                                    { id: "copy", label: "Copy Link", emoji: "🔗" },
+                                    { id: "whatsapp", label: "WhatsApp", icon: <WhatsAppIcon className="w-5 h-5" /> },
+                                    { id: "facebook", label: "Facebook", icon: <FacebookIcon className="w-5 h-5" /> },
+                                    { id: "instagram", label: copiedPlatform === "instagram" ? "Copied! → Instagram" : "Instagram", icon: <InstagramIcon className="w-5 h-5" /> },
+                                    { id: "tiktok", label: copiedPlatform === "tiktok" ? "Copied! → TikTok" : "TikTok", icon: <TikTokIcon className="w-5 h-5" /> },
+                                    { id: "copy", label: copiedPlatform === "copy" ? "Copied!" : "Copy Link", icon: <CopyLinkIcon className="w-5 h-5 text-[var(--text-muted)]" /> },
                                 ].map(opt => (
                                     <button
                                         key={opt.id}
                                         onClick={() => handleShare(opt.id)}
                                         className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-colors text-left"
                                     >
-                                        <span className="text-base">{opt.emoji}</span>
-                                        {opt.label}
+                                        <span className="shrink-0">{opt.icon}</span>
+                                        <span className={copiedPlatform === opt.id ? "text-emerald-500 font-semibold" : ""}>{opt.label}</span>
                                     </button>
                                 ))}
                             </div>

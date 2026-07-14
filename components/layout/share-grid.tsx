@@ -1,73 +1,125 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import {
+    WhatsAppIcon,
+    FacebookIcon,
+    InstagramIcon,
+    TikTokIcon,
+} from "@/components/ui/social-icons";
 
 export function ShareGrid() {
-    const [shareUrl, setShareUrl] = useState("https://unitybridgeke.org");
+    const [siteUrl, setSiteUrl] = useState("https://unitybridgeke.org");
+    const [copiedFor, setCopiedFor] = useState<string | null>(null);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setShareUrl(window.location.href);
+            setSiteUrl(window.location.origin);
         }
     }, []);
 
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-        `Support Unity Bridge Kenya 🇰🇪 - Lifting burdens, building futures: ` + shareUrl
+        `Support Unity Bridge Kenya 🇰🇪 — Lifting burdens, building futures: ${siteUrl}`
     )}`;
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-    const emailUrl = `mailto:?subject=${encodeURIComponent(
-        "Support Unity Bridge Kenya"
-    )}&body=${encodeURIComponent(
-        `I thought you'd want to know about this organisation doing great work in Kenya: ` + shareUrl
-    )}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`;
+
+    /** Copy siteUrl to clipboard and open the platform in a new tab */
+    const handleCopyAndOpen = (platform: "instagram" | "tiktok") => {
+        const platformUrl =
+            platform === "instagram"
+                ? "https://www.instagram.com/"
+                : "https://www.tiktok.com/";
+        navigator.clipboard.writeText(siteUrl).then(() => {
+            setCopiedFor(platform);
+            window.open(platformUrl, "_blank", "noopener,noreferrer");
+            setTimeout(() => setCopiedFor(null), 3000);
+        });
+    };
 
     const shareItems = [
         {
-            icon: "💬",
+            id: "whatsapp",
+            icon: <WhatsAppIcon className="w-8 h-8" />,
+            iconBg: "bg-[#25D366]/10",
             title: "Share on WhatsApp",
             desc: "Send our link to your contacts, family groups, or church chats.",
-            href: whatsappUrl,
-            label: "Share via WhatsApp",
+            actionLabel: "Share via WhatsApp",
+            onClick: () => window.open(whatsappUrl, "_blank", "noopener,noreferrer"),
         },
         {
-            icon: "📘",
+            id: "facebook",
+            icon: <FacebookIcon className="w-8 h-8" />,
+            iconBg: "bg-[#1877F2]/10",
             title: "Share on Facebook",
-            desc: "Post about a project you care about and tag us.",
-            href: facebookUrl,
-            label: "Share on Facebook",
+            desc: "Post about a project you care about and tag our page.",
+            actionLabel: "Share on Facebook",
+            onClick: () => window.open(facebookUrl, "_blank", "noopener,noreferrer"),
         },
         {
-            icon: "📧",
-            title: "Tell Someone Today",
-            desc: "Forward our website to a colleague, friend, or employer who gives.",
-            href: emailUrl,
-            label: "Share via Email",
+            id: "instagram",
+            icon: <InstagramIcon className="w-8 h-8" />,
+            iconBg: "bg-pink-500/10",
+            title: "Share on Instagram",
+            desc: "Copy our link and paste it in your Instagram story, bio, or DM.",
+            actionLabel:
+                copiedFor === "instagram"
+                    ? "Link copied! Paste on Instagram ✓"
+                    : "Copy link for Instagram",
+            onClick: () => handleCopyAndOpen("instagram"),
+        },
+        {
+            id: "tiktok",
+            icon: <TikTokIcon className="w-8 h-8" />,
+            iconBg: "bg-neutral-400/10",
+            title: "Share on TikTok",
+            desc: "Copy our link and paste it in your TikTok bio, caption, or DM.",
+            actionLabel:
+                copiedFor === "tiktok"
+                    ? "Link copied! Paste on TikTok ✓"
+                    : "Copy link for TikTok",
+            onClick: () => handleCopyAndOpen("tiktok"),
         },
     ];
 
     return (
-        <div className="grid sm:grid-cols-3 gap-5 text-left">
-            {shareItems.map(({ icon, title, desc, href, label }) => (
-                <a
-                    key={title}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group p-5 bg-[var(--bg-secondary)] border border-[var(--border-light)] rounded-2xl hover:border-[var(--primary-green)]/40 transition-colors"
-                >
-                    <span className="text-3xl block mb-3">{icon}</span>
-                    <h3 className="font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--primary-green)] transition-colors">
-                        {title}
-                    </h3>
-                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
-                        {desc}
-                    </p>
-                    <span className="text-xs font-bold text-[var(--primary-green)] flex items-center gap-1">
-                        {label} <ArrowRight className="w-3 h-3" />
-                    </span>
-                </a>
-            ))}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
+            {shareItems.map(({ id, icon, iconBg, title, desc, actionLabel, onClick }) => {
+                const isCopied = copiedFor === id;
+                return (
+                    <button
+                        key={id}
+                        onClick={onClick}
+                        className="group p-5 bg-[var(--bg-secondary)] border border-[var(--border-light)] rounded-2xl hover:border-[var(--primary-green)]/40 transition-all text-left"
+                    >
+                        <span
+                            className={`w-14 h-14 ${iconBg} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                        >
+                            {icon}
+                        </span>
+                        <h3 className="font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--primary-green)] transition-colors">
+                            {title}
+                        </h3>
+                        <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+                            {desc}
+                        </p>
+                        <span
+                            className={`text-xs font-bold flex items-center gap-1 transition-colors ${
+                                isCopied
+                                    ? "text-emerald-500"
+                                    : "text-[var(--primary-green)]"
+                            }`}
+                        >
+                            {isCopied ? (
+                                <Check className="w-3 h-3" />
+                            ) : (
+                                <ArrowRight className="w-3 h-3" />
+                            )}
+                            {actionLabel}
+                        </span>
+                    </button>
+                );
+            })}
         </div>
     );
 }

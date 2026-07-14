@@ -4,7 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Share2 } from "lucide-react";
+import { ArrowRight, Share2, Check } from "lucide-react";
+import { WhatsAppIcon, FacebookIcon, InstagramIcon, TikTokIcon, CopyLinkIcon } from "@/components/ui/social-icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/constants";
@@ -48,15 +49,28 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
         const text = "Check out the impact Unity Bridge Kenya is making — verified projects changing lives across Kenya!";
         if (platform === "whatsapp") {
             window.open(`https://wa.me/?text=${encodeURIComponent(`${text}\n\n${shareUrl}`)}`, "_blank");
+            setShowShareMenu(false);
         } else if (platform === "facebook") {
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank");
+            setShowShareMenu(false);
+        } else if (platform === "instagram") {
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                setCopied(true);
+                window.open("https://www.instagram.com/", "_blank");
+                setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
+            });
+        } else if (platform === "tiktok") {
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                setCopied(true);
+                window.open("https://www.tiktok.com/", "_blank");
+                setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
+            });
         } else if (platform === "copy") {
             navigator.clipboard.writeText(shareUrl).then(() => {
                 setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
+                setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
             });
         }
-        if (platform !== "copy") setShowShareMenu(false);
     };
 
     return (
@@ -90,19 +104,21 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
                             </button>
 
                             {showShareMenu && (
-                                <div className="absolute top-full right-0 mt-2 w-52 bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl shadow-2xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+                                <div className="absolute top-full right-0 mt-2 w-56 bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl shadow-2xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
                                     {[
-                                        { id: "whatsapp", label: "Share on WhatsApp", emoji: "💬" },
-                                        { id: "facebook", label: "Share on Facebook", emoji: "📘" },
-                                        { id: "copy", label: copied ? "Copied!" : "Copy Link", emoji: copied ? "✅" : "🔗" },
+                                        { id: "whatsapp", label: "WhatsApp", icon: <WhatsAppIcon className="w-5 h-5" /> },
+                                        { id: "facebook", label: "Facebook", icon: <FacebookIcon className="w-5 h-5" /> },
+                                        { id: "instagram", label: copied ? "Copied! → Instagram" : "Instagram", icon: <InstagramIcon className="w-5 h-5" /> },
+                                        { id: "tiktok", label: copied ? "Copied! → TikTok" : "TikTok", icon: <TikTokIcon className="w-5 h-5" /> },
+                                        { id: "copy", label: copied ? "Copied!" : "Copy Link", icon: <CopyLinkIcon className="w-5 h-5 text-[var(--text-muted)]" /> },
                                     ].map(opt => (
                                         <button
                                             key={opt.id}
                                             onClick={() => handleShareOption(opt.id)}
                                             className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-colors text-left"
                                         >
-                                            <span className="text-base">{opt.emoji}</span>
-                                            {opt.label}
+                                            <span className="shrink-0">{opt.icon}</span>
+                                            <span className={copied && (opt.id === "instagram" || opt.id === "tiktok" || opt.id === "copy") ? "text-emerald-500 font-semibold" : ""}>{opt.label}</span>
                                         </button>
                                     ))}
                                 </div>
