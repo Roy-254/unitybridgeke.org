@@ -72,6 +72,16 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
         }
     };
 
+    const handleFloatingShareClick = () => {
+        setShowShareMenu(true);
+        const element = document.getElementById("breadcrumb-share-container");
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    };
+
     const categoryLabel = CATEGORY_LABELS[campaign.category as keyof typeof CATEGORY_LABELS] ?? campaign.category;
     const categoryColor = CATEGORY_COLORS[campaign.category as keyof typeof CATEGORY_COLORS] ?? "bg-gray-100 text-gray-700";
 
@@ -84,7 +94,7 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
                         <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                         Back to Campaigns
                     </Link>
-                    <div className="flex items-center gap-2 relative">
+                    <div className="flex items-center gap-2 relative" id="breadcrumb-share-container">
                         <Button
                             variant="outline" size="sm"
                             className="h-9 gap-2"
@@ -215,10 +225,10 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
                                             variant="outline"
                                             size="lg"
                                             className="w-full h-12 font-bold"
-                                            onClick={() => handleShare("whatsapp")}
+                                            onClick={handleFloatingShareClick}
                                         >
                                             <Share2 className="w-5 h-5 mr-2" />
-                                            Share on WhatsApp
+                                            Share
                                         </Button>
                                     </div>
 

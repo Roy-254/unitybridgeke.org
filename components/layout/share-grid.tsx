@@ -8,7 +8,7 @@ export function ShareGrid() {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setShareUrl(window.location.origin);
+            setShareUrl(window.location.href);
         }
     }, []);
 

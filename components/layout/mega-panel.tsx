@@ -12,14 +12,14 @@ interface MegaPanelProps {
 
 const getDynamicShareHref = (href: string) => {
     if (typeof window === "undefined") return href;
-    const origin = window.location.origin;
+    const currentUrl = window.location.href;
     if (href.includes("wa.me")) {
         return `https://api.whatsapp.com/send?text=${encodeURIComponent(
-            `Support Unity Bridge Kenya 🇰🇪 - Lifting burdens, building futures: ` + origin
+            `Support Unity Bridge Kenya 🇰🇪 - Lifting burdens, building futures: ` + currentUrl
         )}`;
     }
     if (href.includes("facebook.com/sharer")) {
-        return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(origin)}`;
+        return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
     }
     return href;
 };
