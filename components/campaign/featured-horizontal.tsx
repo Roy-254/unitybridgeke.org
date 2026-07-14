@@ -45,7 +45,7 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [showShareMenu]);
 
-    const handleShareOption = (platform: string) => {
+    const handleShareOption = async (platform: string) => {
         const text = "Check out the impact Unity Bridge Kenya is making — verified projects changing lives across Kenya!";
         if (platform === "whatsapp") {
             window.open(`https://wa.me/?text=${encodeURIComponent(`${text}\n\n${shareUrl}`)}`, "_blank");
@@ -53,25 +53,27 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
         } else if (platform === "facebook") {
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank");
             setShowShareMenu(false);
-        } else if (platform === "instagram") {
-            navigator.clipboard.writeText(shareUrl).then(() => {
+        } else if (platform === "instagram" || platform === "tiktok") {
+            // Instagram & TikTok have no web share URL API.
+            // navigator.share() opens the native OS share sheet on mobile (pre-loads the URL).
+            // Falls back to clipboard copy on desktop.
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title: "Unity Bridge Kenya", text, url: shareUrl });
+                } catch { /* cancelled */ }
+                setShowShareMenu(false);
+            } else {
+                await navigator.clipboard.writeText(shareUrl);
                 setCopied(true);
-                window.open("https://www.instagram.com/", "_blank");
                 setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
-            });
-        } else if (platform === "tiktok") {
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                setCopied(true);
-                window.open("https://www.tiktok.com/", "_blank");
-                setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
-            });
+            }
         } else if (platform === "copy") {
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                setCopied(true);
-                setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
-            });
+            await navigator.clipboard.writeText(shareUrl);
+            setCopied(true);
+            setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
         }
     };
+
 
     return (
         <section id="our-impact" ref={targetRef} className="relative h-[250vh] bg-[var(--bg-primary)]">

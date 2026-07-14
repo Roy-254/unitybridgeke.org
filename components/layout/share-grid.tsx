@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Share2 } from "lucide-react";
 import {
     WhatsAppIcon,
     FacebookIcon,
@@ -12,10 +12,12 @@ import {
 export function ShareGrid() {
     const [siteUrl, setSiteUrl] = useState("https://unitybridgeke.org");
     const [copiedFor, setCopiedFor] = useState<string | null>(null);
+    const [canNativeShare, setCanNativeShare] = useState(false);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
             setSiteUrl(window.location.origin);
+            setCanNativeShare(!!navigator.share);
         }
     }, []);
 
@@ -24,17 +26,31 @@ export function ShareGrid() {
     )}`;
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`;
 
-    /** Copy siteUrl to clipboard and open the platform in a new tab */
-    const handleCopyAndOpen = (platform: "instagram" | "tiktok") => {
-        const platformUrl =
-            platform === "instagram"
-                ? "https://www.instagram.com/"
-                : "https://www.tiktok.com/";
-        navigator.clipboard.writeText(siteUrl).then(() => {
+    /**
+     * Instagram & TikTok have no public web share URL API.
+     * The correct approach is navigator.share() (native OS share sheet on mobile)
+     * which pre-loads the URL and lets the user pick any installed app.
+     * Falls back to clipboard copy on desktop where the API is unavailable.
+     */
+    const handleNativeShare = async (platform: "instagram" | "tiktok") => {
+        const shareData = {
+            title: "Unity Bridge Kenya",
+            text: "Support Unity Bridge Kenya 🇰🇪 — Lifting burdens, building futures.",
+            url: siteUrl,
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch {
+                // User cancelled — do nothing
+            }
+        } else {
+            // Desktop fallback: copy link to clipboard
+            await navigator.clipboard.writeText(siteUrl);
             setCopiedFor(platform);
-            window.open(platformUrl, "_blank", "noopener,noreferrer");
             setTimeout(() => setCopiedFor(null), 3000);
-        });
+        }
     };
 
     const shareItems = [
@@ -61,24 +77,28 @@ export function ShareGrid() {
             icon: <InstagramIcon className="w-8 h-8" />,
             iconBg: "bg-pink-500/10",
             title: "Share on Instagram",
-            desc: "Post our link in your story, pin it to your bio, or DM it to friends and family who care about Kenya.",
+            desc: "Tap to open your phone's share sheet — choose Instagram to share our link in your story, bio, or DMs instantly.",
             actionLabel:
                 copiedFor === "instagram"
                     ? "Link copied! Paste on Instagram ✓"
-                    : "Share on Instagram",
-            onClick: () => handleCopyAndOpen("instagram"),
+                    : canNativeShare
+                    ? "Share on Instagram"
+                    : "Copy link for Instagram",
+            onClick: () => handleNativeShare("instagram"),
         },
         {
             id: "tiktok",
             icon: <TikTokIcon className="w-8 h-8" />,
             iconBg: "bg-neutral-400/10",
             title: "Share on TikTok",
-            desc: "Mention us in your next video, drop our link in the comments, or add it to your bio to inspire your followers to give.",
+            desc: "Tap to open your phone's share sheet — choose TikTok to drop our link in your bio, caption, or a video comment.",
             actionLabel:
                 copiedFor === "tiktok"
                     ? "Link copied! Paste on TikTok ✓"
-                    : "Share on TikTok",
-            onClick: () => handleCopyAndOpen("tiktok"),
+                    : canNativeShare
+                    ? "Share on TikTok"
+                    : "Copy link for TikTok",
+            onClick: () => handleNativeShare("tiktok"),
         },
     ];
 
@@ -105,9 +125,7 @@ export function ShareGrid() {
                         </p>
                         <span
                             className={`text-xs font-bold flex items-center gap-1 transition-colors ${
-                                isCopied
-                                    ? "text-emerald-500"
-                                    : "text-[var(--primary-green)]"
+                                isCopied ? "text-emerald-500" : "text-[var(--primary-green)]"
                             }`}
                         >
                             {isCopied ? (

@@ -64,7 +64,7 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
         ? `${window.location.origin}/campaign/${campaign.slug}`
         : `/campaign/${campaign.slug}`;
 
-    const handleShare = (platform: string) => {
+    const handleShare = async (platform: string) => {
         const text = `Help ${campaign.title} reach its goal on Unity Bridge Kenya!`;
         if (platform === "whatsapp") {
             shareOnWhatsApp(text, campaignUrl);
@@ -72,25 +72,27 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
         } else if (platform === "facebook") {
             shareOnFacebook(campaignUrl);
             setShowShareMenu(false);
-        } else if (platform === "instagram") {
-            navigator.clipboard.writeText(campaignUrl).then(() => {
-                setCopiedPlatform("instagram");
-                window.open("https://www.instagram.com/", "_blank");
+        } else if (platform === "instagram" || platform === "tiktok") {
+            // Instagram & TikTok have no web share URL API.
+            // navigator.share() opens the native OS share sheet on mobile (pre-loads the URL).
+            // Falls back to clipboard copy on desktop.
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title: campaign.title, text, url: campaignUrl });
+                } catch { /* cancelled */ }
+                setShowShareMenu(false);
+            } else {
+                await navigator.clipboard.writeText(campaignUrl);
+                setCopiedPlatform(platform);
                 setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
-            });
-        } else if (platform === "tiktok") {
-            navigator.clipboard.writeText(campaignUrl).then(() => {
-                setCopiedPlatform("tiktok");
-                window.open("https://www.tiktok.com/", "_blank");
-                setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
-            });
+            }
         } else if (platform === "copy") {
-            navigator.clipboard.writeText(campaignUrl).then(() => {
-                setCopiedPlatform("copy");
-                setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
-            });
+            await navigator.clipboard.writeText(campaignUrl);
+            setCopiedPlatform("copy");
+            setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
         }
     };
+
 
     const handleFloatingShareClick = () => {
         setShowShareMenu(true);
