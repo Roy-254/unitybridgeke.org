@@ -151,8 +151,6 @@ export const MEGA_NAV: MegaMenu[] = [
                 heading: "Share",
                 links: [
                     { label: "Spread the Word", href: "/get-involved#share" },
-                    { label: "Share on WhatsApp", href: "https://wa.me/?text=Support+Unity+Bridge+Kenya+%F0%9F%87%B0%F0%9F%87%AA+https://unitybridgeke.org", external: true },
-                    { label: "Share on Facebook", href: "https://facebook.com/sharer/sharer.php?u=https://unitybridgeke.org", external: true },
                 ],
             },
         ],

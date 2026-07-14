@@ -61,11 +61,11 @@ export function ShareGrid() {
             icon: <InstagramIcon className="w-8 h-8" />,
             iconBg: "bg-pink-500/10",
             title: "Share on Instagram",
-            desc: "Copy our link and paste it in your Instagram story, bio, or DM.",
+            desc: "Post our link in your story, pin it to your bio, or DM it to friends and family who care about Kenya.",
             actionLabel:
                 copiedFor === "instagram"
                     ? "Link copied! Paste on Instagram ✓"
-                    : "Copy link for Instagram",
+                    : "Share on Instagram",
             onClick: () => handleCopyAndOpen("instagram"),
         },
         {
@@ -73,11 +73,11 @@ export function ShareGrid() {
             icon: <TikTokIcon className="w-8 h-8" />,
             iconBg: "bg-neutral-400/10",
             title: "Share on TikTok",
-            desc: "Copy our link and paste it in your TikTok bio, caption, or DM.",
+            desc: "Mention us in your next video, drop our link in the comments, or add it to your bio to inspire your followers to give.",
             actionLabel:
                 copiedFor === "tiktok"
                     ? "Link copied! Paste on TikTok ✓"
-                    : "Copy link for TikTok",
+                    : "Share on TikTok",
             onClick: () => handleCopyAndOpen("tiktok"),
         },
     ];
