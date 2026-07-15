@@ -230,7 +230,25 @@ export async function shareToPlatform(
 ): Promise<void> {
     const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
     const isAndroid = /Android/i.test(ua);
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
     const fullText = `${text}\n\n${url}`;
+
+    // Always copy the content to clipboard first so the user can paste it
+    try {
+        await navigator.clipboard.writeText(fullText);
+    } catch (err) {
+        try {
+            const textarea = document.createElement("textarea");
+            textarea.value = fullText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        } catch { /* ignore */ }
+    }
+
+    // Trigger visual feedback (e.g. showing "Copied! → Instagram")
+    onCopied?.();
 
     if (isAndroid) {
         // Android Intent URL: directly targets the installed app, bypassing the OS share sheet.
@@ -246,14 +264,33 @@ export async function shareToPlatform(
         const encodedText = encodeURIComponent(fullText);
         const fallback = encodeURIComponent(fallbacks[platform]);
         window.location.href = `intent://#Intent;action=android.intent.action.SEND;type=text/plain;S.android.intent.extra.TEXT=${encodedText};package=${packages[platform]};S.browser_fallback_url=${fallback};end`;
-    } else if (typeof navigator !== "undefined" && navigator.share) {
-        // iOS and supported desktop browsers — native share sheet.
-        try {
-            await navigator.share({ title: "Unity Bridge Kenya", text: fullText, url });
-        } catch { /* user cancelled */ }
+    } else if (isIOS) {
+        // iOS: Immediately attempt to deep-link to the app, falling back to the browser.
+        const schemes: Record<string, string> = {
+            instagram: "instagram://",
+            tiktok: "tiktok://",
+        };
+        const webFallbacks: Record<string, string> = {
+            instagram: "https://www.instagram.com/",
+            tiktok: "https://www.tiktok.com/",
+        };
+
+        const scheme = schemes[platform];
+        const fallback = webFallbacks[platform];
+        const start = Date.now();
+        window.location.href = scheme;
+
+        setTimeout(() => {
+            if (Date.now() - start < 1500) {
+                window.location.href = fallback;
+            }
+        }, 1000);
     } else {
-        // Desktop clipboard fallback.
-        try { await navigator.clipboard.writeText(url); } catch { /* ignore */ }
-        onCopied?.();
+        // Desktop / Other: Open web page in a new window/tab so they can paste it.
+        const webUrls: Record<string, string> = {
+            instagram: "https://www.instagram.com/",
+            tiktok: "https://www.tiktok.com/upload",
+        };
+        window.open(webUrls[platform], "_blank", "noopener,noreferrer");
     }
 }
