@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Share2, Check } from "lucide-react";
 import { WhatsAppIcon, FacebookIcon, InstagramIcon, TikTokIcon, CopyLinkIcon } from "@/components/ui/social-icons";
+import { shareToPlatform } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/constants";
@@ -54,19 +55,12 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank");
             setShowShareMenu(false);
         } else if (platform === "instagram" || platform === "tiktok") {
-            // Instagram & TikTok have no web share URL API.
-            // navigator.share() opens the native OS share sheet on mobile (pre-loads the URL).
-            // Falls back to clipboard copy on desktop.
-            if (navigator.share) {
-                try {
-                    await navigator.share({ title: "Unity Bridge Kenya", text, url: shareUrl });
-                } catch { /* cancelled */ }
-                setShowShareMenu(false);
-            } else {
-                await navigator.clipboard.writeText(shareUrl);
+            // Android: Intent URL opens app directly. iOS: navigator.share. Desktop: clipboard.
+            await shareToPlatform(platform as "instagram" | "tiktok", shareUrl, text, () => {
                 setCopied(true);
-                setTimeout(() => { setCopied(false); setShowShareMenu(false); }, 1800);
-            }
+                setTimeout(() => setCopied(false), 2000);
+            });
+            setShowShareMenu(false);
         } else if (platform === "copy") {
             await navigator.clipboard.writeText(shareUrl);
             setCopied(true);

@@ -215,3 +215,45 @@ export async function copyToClipboard(text: string): Promise<boolean> {
         return false;
     }
 }
+
+/**
+ * Share to Instagram or TikTok:
+ * - Android : Intent URL → opens the target app directly with text pre-loaded (no OS share sheet).
+ * - iOS/other: navigator.share() — native share sheet (best available on iOS).
+ * - Desktop  : clipboard copy fallback, then calls onCopied().
+ */
+export async function shareToPlatform(
+    platform: "instagram" | "tiktok",
+    url: string,
+    text: string,
+    onCopied?: () => void
+): Promise<void> {
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+    const isAndroid = /Android/i.test(ua);
+    const fullText = `${text}\n\n${url}`;
+
+    if (isAndroid) {
+        // Android Intent URL: directly targets the installed app, bypassing the OS share sheet.
+        // S.browser_fallback_url is used when the app is not installed.
+        const packages: Record<string, string> = {
+            instagram: "com.instagram.android",
+            tiktok: "com.zhiliaoapp.musically",
+        };
+        const fallbacks: Record<string, string> = {
+            instagram: "https://www.instagram.com/",
+            tiktok: "https://www.tiktok.com/",
+        };
+        const encodedText = encodeURIComponent(fullText);
+        const fallback = encodeURIComponent(fallbacks[platform]);
+        window.location.href = `intent://#Intent;action=android.intent.action.SEND;type=text/plain;S.android.intent.extra.TEXT=${encodedText};package=${packages[platform]};S.browser_fallback_url=${fallback};end`;
+    } else if (typeof navigator !== "undefined" && navigator.share) {
+        // iOS and supported desktop browsers — native share sheet.
+        try {
+            await navigator.share({ title: "Unity Bridge Kenya", text: fullText, url });
+        } catch { /* user cancelled */ }
+    } else {
+        // Desktop clipboard fallback.
+        try { await navigator.clipboard.writeText(url); } catch { /* ignore */ }
+        onCopied?.();
+    }
+}

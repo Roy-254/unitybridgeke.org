@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatDate, shareOnWhatsApp, shareOnFacebook } from "@/lib/utils";
+import { formatDate, shareOnWhatsApp, shareOnFacebook, shareToPlatform } from "@/lib/utils";
 import { CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ReportModal } from "@/components/campaign/report-modal";
@@ -73,19 +73,12 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
             shareOnFacebook(campaignUrl);
             setShowShareMenu(false);
         } else if (platform === "instagram" || platform === "tiktok") {
-            // Instagram & TikTok have no web share URL API.
-            // navigator.share() opens the native OS share sheet on mobile (pre-loads the URL).
-            // Falls back to clipboard copy on desktop.
-            if (navigator.share) {
-                try {
-                    await navigator.share({ title: campaign.title, text, url: campaignUrl });
-                } catch { /* cancelled */ }
-                setShowShareMenu(false);
-            } else {
-                await navigator.clipboard.writeText(campaignUrl);
+            // Android: Intent URL opens app directly. iOS: navigator.share. Desktop: clipboard.
+            await shareToPlatform(platform as "instagram" | "tiktok", campaignUrl, text, () => {
                 setCopiedPlatform(platform);
-                setTimeout(() => { setCopiedPlatform(null); setShowShareMenu(false); }, 1800);
-            }
+                setTimeout(() => setCopiedPlatform(null), 2000);
+            });
+            setShowShareMenu(false);
         } else if (platform === "copy") {
             await navigator.clipboard.writeText(campaignUrl);
             setCopiedPlatform("copy");
