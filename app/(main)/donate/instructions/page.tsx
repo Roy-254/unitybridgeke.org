@@ -337,7 +337,7 @@ function InstructionsContent() {
                     </div>
                     <div>
                         <h3 className="text-lg font-extrabold text-[var(--text-primary)]">If you did not receive the prompt message, use:</h3>
-                        <p className="text-sm text-[var(--text-muted)]">Manual Pay via Buy Goods (Till Number)</p>
+                        <p className="text-sm text-[var(--text-muted)]">Manual Pay via Paybill</p>
                     </div>
                 </div>
 
@@ -345,14 +345,21 @@ function InstructionsContent() {
                     <div className="p-6 bg-[var(--bg-primary)] rounded-2xl border border-[var(--border-light)]">
                         <div className="space-y-3">
                             <div className="flex items-center justify-between py-2 border-b border-[var(--border-light)]">
-                                <span className="text-sm text-[var(--text-secondary)] font-bold">Till Number (Buy Goods)</span>
+                                <span className="text-sm text-[var(--text-secondary)] font-bold">Business Number (Paybill)</span>
                                 <div className="flex items-center gap-2">
-                                    <span className="font-mono font-black text-[var(--primary-green)] text-lg tracking-tighter">4721832</span>
-                                    <CopyButton text="4721832" />
+                                    <span className="font-mono font-black text-[var(--primary-green)] text-lg tracking-tighter">247247</span>
+                                    <CopyButton text="247247" />
                                 </div>
                             </div>
                             <div className="flex items-center justify-between py-2 border-b border-[var(--border-light)]">
                                 <span className="text-sm text-[var(--text-secondary)] font-bold">Account Number</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="font-mono font-bold text-[var(--text-primary)] text-sm">0708015897</span>
+                                    <CopyButton text="0708015897" />
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-between py-2 border-b border-[var(--border-light)]">
+                                <span className="text-sm text-[var(--text-secondary)] font-bold">Your Tracking Code</span>
                                 <div className="flex items-center gap-2">
                                     <span className="font-mono font-bold text-[var(--text-primary)] text-sm">{code || "N/A"}</span>
                                     {code && <CopyButton text={code} />}

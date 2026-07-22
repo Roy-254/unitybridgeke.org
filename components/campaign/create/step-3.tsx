@@ -21,7 +21,7 @@ const KENYAN_BANKS = [
 const PAYMENT_OPTIONS: { type: PaymentMethodType; label: string; description: string; icon: React.ElementType; color: string }[] = [
     { type: "mpesa_personal", label: "M-Pesa (Personal)", description: "Receive to your Safaricom number", icon: Smartphone, color: "text-green-600" },
     { type: "mpesa_paybill", label: "M-Pesa Paybill", description: "Receive to a business paybill", icon: Building2, color: "text-green-700" },
-    { type: "mpesa_till", label: "M-Pesa Till Number", description: "Receive to a buy-goods till", icon: Smartphone, color: "text-green-500" },
+    { type: "mpesa_till", label: "M-Pesa Till / Paybill", description: "Receive to a buy-goods till or paybill", icon: Smartphone, color: "text-green-500" },
     { type: "bank", label: "Bank Account", description: "Direct bank transfer (3-5 days)", icon: CreditCard, color: "text-blue-600" },
     { type: "paypal", label: "PayPal", description: "International transfers", icon: DollarSign, color: "text-indigo-600" },
 ];
@@ -143,7 +143,7 @@ function PaymentMethodForm({ method, onChange, onRemove }: {
             {method.type === "mpesa_till" && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                        <Label>Till Number</Label>
+                        <Label>Till / Paybill Number</Label>
                         <input
                             placeholder="e.g. 123456"
                             value={method.till_number ?? ""}

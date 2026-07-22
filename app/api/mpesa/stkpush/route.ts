@@ -51,13 +51,13 @@ export async function POST(req: Request) {
             BusinessShortCode: SHORTCODE,
             Password: password,
             Timestamp: timestamp,
-            TransactionType: "CustomerPayBillOnline", // or 'CustomerBuyGoodsOnline' for Till
+            TransactionType: "CustomerPayBillOnline", // explicitly set for Paybill
             Amount: amount,
             PartyA: formattedPhone,
             PartyB: SHORTCODE,
             PhoneNumber: formattedPhone,
             CallBackURL: CALLBACK_URL,
-            AccountReference: reference || "UnityBridgeDonation",
+            AccountReference: reference || "0708015897",
             TransactionDesc: "Unity Bridge Kenya Donation",
         };
 

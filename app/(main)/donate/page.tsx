@@ -19,15 +19,16 @@ interface Project {
 }
 
 // ─── Constants ───────────────────────────────────────────────────
-const AMOUNTS = [99];
-
-const IMPACT: Record<number, string> = {
-    99: "Your small gift makes a huge difference in Kenyan lives today.",
-};
+const TIERS = [
+    { amount: 99, label: "Hope Builder", icon: "💚", impact: "Makes a huge difference in Kenyan lives today." },
+    { amount: 500, label: "Community Champion", icon: "🌱", impact: "Empowers a family with essential resources." },
+    { amount: 2000, label: "Life Changer", icon: "❤️", impact: "Provides long-term support and education." },
+    { amount: 10000, label: "Legacy Partner", icon: "🌍", impact: "Creates sustainable change for communities." }
+];
 
 function getImpact(amount: number): string {
-    if (amount >= 99) return IMPACT[99];
-    return "";
+    const tier = TIERS.find(t => t.amount === amount);
+    return tier ? tier.impact : "Your generous gift makes a huge difference in Kenyan lives today.";
 }
 
 // ─── Phone formatter ─────────────────────────────────────────────
@@ -62,6 +63,7 @@ function DonationForm() {
     // State: amount
     const [preset, setPreset] = useState<number | null>(99);
     const [customActive] = useState(false);
+    const [amountDropdownOpen, setAmountDropdownOpen] = useState(false);
 
     // State: donor details
     const [name, setName] = useState("");
@@ -398,21 +400,74 @@ function DonationForm() {
                     Every shilling goes directly to the people who need it.
                 </p>
 
-                {/* Preset grid */}
-                <div className="grid grid-cols-1 gap-2 mb-4">
-                    {AMOUNTS.map((a) => (
-                        <button
-                            key={a}
-                            type="button"
-                            onClick={() => { setPreset(a); }}
-                            className={`h-14 rounded-xl font-bold text-lg transition-all ${!customActive && preset === a
-                                ? "bg-[var(--primary-green)] text-white shadow-md shadow-green-900/20 ring-4 ring-[var(--primary-green)]/20"
-                                : "border-2 border-[var(--border-light)] text-[var(--text-secondary)] hover:border-[var(--primary-green)] hover:text-[var(--primary-green)] bg-[var(--bg-primary)]"
-                                }`}
-                        >
-                            KES {a}
-                        </button>
-                    ))}
+                {/* Custom Animated Tier Dropdown */}
+                <div className="relative mb-4">
+                    <button
+                        type="button"
+                        onClick={() => setAmountDropdownOpen(!amountDropdownOpen)}
+                        className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
+                            amountDropdownOpen
+                                ? "border-[var(--primary-green)] bg-[var(--primary-green)]/5"
+                                : "border-[var(--border-light)] bg-[var(--bg-primary)] hover:border-[var(--primary-green)]"
+                        }`}
+                    >
+                        <div className="flex items-center gap-3">
+                            <span className="text-xl">{TIERS.find((t) => t.amount === preset)?.icon || "💡"}</span>
+                            <div className="text-left">
+                                <p className="font-extrabold text-[var(--text-primary)]">
+                                    {TIERS.find((t) => t.amount === preset)?.label || "Select Donation Level"}
+                                </p>
+                                {preset && (
+                                    <p className="text-sm font-bold text-[var(--primary-green)]">
+                                        KES {preset.toLocaleString()}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                        <ChevronDown
+                            className={`w-5 h-5 text-[var(--text-muted)] transition-transform duration-300 ${
+                                amountDropdownOpen ? "rotate-180" : ""
+                            }`}
+                        />
+                    </button>
+
+                    {amountDropdownOpen && (
+                        <div className="absolute top-full left-0 right-0 mt-2 p-2 bg-[var(--bg-primary)] border border-[var(--border-light)] rounded-xl shadow-xl z-20 animate-in fade-in slide-in-from-top-2 duration-200">
+                            {TIERS.map((tier) => (
+                                <button
+                                    key={tier.amount}
+                                    type="button"
+                                    onClick={() => {
+                                        setPreset(tier.amount);
+                                        setAmountDropdownOpen(false);
+                                    }}
+                                    className={`w-full flex items-center gap-4 p-3 rounded-lg transition-all text-left group ${
+                                        preset === tier.amount
+                                            ? "bg-[var(--primary-green)]/10"
+                                            : "hover:bg-[var(--bg-secondary)]"
+                                    }`}
+                                >
+                                    <div
+                                        className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-transform group-hover:scale-110 ${
+                                            preset === tier.amount
+                                                ? "bg-[var(--primary-green)]/20 shadow-sm"
+                                                : "bg-[var(--bg-tertiary)]"
+                                        }`}
+                                    >
+                                        {tier.icon}
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="font-extrabold text-[var(--text-primary)] group-hover:text-[var(--primary-green)] transition-colors">
+                                            {tier.label}
+                                        </p>
+                                        <p className="text-sm font-bold text-[var(--text-secondary)]">
+                                            KES {tier.amount.toLocaleString()}{tier.amount >= 10000 ? "+" : ""}
+                                        </p>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
 

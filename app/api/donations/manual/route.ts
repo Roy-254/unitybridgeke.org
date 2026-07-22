@@ -202,8 +202,8 @@ function buildConfirmationEmail({
   trackingUrl: string;
   phone: string;
 }) {
-  const paybillNo = "123456";
-  const tillNo = "4721832"; // Updated to real till
+  const paybillNo = "247247";
+  const accountNumber = "0708015897";
   const WHATSAPP = "0740 797 404";
   const SUPPORT_PHONE = "0740 797 404";
   const supportEmail = "donations@unitybridgeke.org";
@@ -269,25 +269,16 @@ function buildConfirmationEmail({
             <!-- Payment Instructions -->
             <h2 style="color:#1a1a1a;font-size:18px;margin:0 0 16px;">How to Complete Your Donation</h2>
 
-            <!-- Notice -->
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#fffbeb;border-radius:10px;border:1px solid #fbbf24;margin-bottom:20px;">
-              <tr><td style="padding:14px 18px;">
-                <p style="margin:0;font-size:13px;color:#92400e;">
-                  ⚠️ <strong>Note:</strong> Our M-Pesa numbers are being finalised. If the numbers below don't work, reply to this email and we will send you the current details within the hour.
-                </p>
-              </td></tr>
-            </table>
-
             <!-- Option 1: Paybill -->
             <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:16px;">
               <tr>
                 <td style="background:#16a34a;padding:12px 20px;border-radius:12px 12px 0 0;">
-                  <p style="margin:0;color:#fff;font-weight:700;font-size:14px;">📱 Option 1: Paybill (Recommended)</p>
+                  <p style="margin:0;color:#fff;font-weight:700;font-size:14px;">📱 Manual M-Pesa Payment</p>
                 </td>
               </tr>
               <tr><td style="padding:20px;">
                 <table width="100%" cellpadding="5" cellspacing="0">
-                  ${["Go to M-Pesa menu", "Select <strong>Lipa na M-Pesa</strong>", "Select <strong>Paybill</strong>", `Business Number: <strong style="font-family:monospace;font-size:16px;">${paybillNo}</strong>`, `Account Number: <strong style="font-family:monospace;font-size:16px;">${confirmationCode}</strong>`, `Amount: <strong style="font-family:monospace;font-size:16px;">${amount}</strong>`, "Enter your M-Pesa PIN", "Confirm payment"].map((step, i) => `
+                  ${["Go to M-Pesa menu", "Select <strong>Lipa na M-Pesa</strong>", "Select <strong>Paybill</strong>", `Business Number: <strong style="font-family:monospace;font-size:16px;">${paybillNo}</strong>`, `Account Number: <strong style="font-family:monospace;font-size:16px;">${accountNumber}</strong>`, `Amount: <strong style="font-family:monospace;font-size:16px;">${amount}</strong>`, "Enter your M-Pesa PIN", "Confirm payment"].map((step, i) => `
                   <tr>
                     <td width="28" valign="top" style="padding-right:10px;">
                       <div style="width:22px;height:22px;background:#16a34a;border-radius:50%;color:#fff;font-size:11px;font-weight:800;text-align:center;line-height:22px;">${i + 1}</div>
@@ -295,28 +286,8 @@ function buildConfirmationEmail({
                     <td style="font-size:14px;color:#374151;">${step}</td>
                   </tr>`).join("")}
                 </table>
-              </td></tr>
-            </table>
-
-            <!-- Option 2: Till -->
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:28px;">
-              <tr>
-                <td style="background:#0891b2;padding:12px 20px;border-radius:12px 12px 0 0;">
-                  <p style="margin:0;color:#fff;font-weight:700;font-size:14px;">📱 Option 2: Buy Goods (Till Number)</p>
-                </td>
-              </tr>
-              <tr><td style="padding:20px;">
-                <table width="100%" cellpadding="5" cellspacing="0">
-                  ${["Go to M-Pesa menu", "Select <strong>Lipa na M-Pesa</strong>", "Select <strong>Buy Goods and Services</strong>", `Till Number: <strong style="font-family:monospace;font-size:16px;">${tillNo}</strong>`, `Amount: <strong style="font-family:monospace;font-size:16px;">${amount}</strong>`, "Enter your M-Pesa PIN", "Confirm payment"].map((step, i) => `
-                  <tr>
-                    <td width="28" valign="top" style="padding-right:10px;">
-                      <div style="width:22px;height:22px;background:#0891b2;border-radius:50%;color:#fff;font-size:11px;font-weight:800;text-align:center;line-height:22px;">${i + 1}</div>
-                    </td>
-                    <td style="font-size:14px;color:#374151;">${step}</td>
-                  </tr>`).join("")}
-                </table>
                 <p style="margin:16px 0 0;font-size:13px;color:#7c3aed;background:#f5f3ff;padding:12px;border-radius:8px;">
-                  <strong>After paying via Till:</strong> Please forward your M-Pesa confirmation SMS to us on WhatsApp: <strong>${WHATSAPP}</strong> with your code <strong>${confirmationCode}</strong>.
+                  <strong>Important:</strong> After paying, please forward your M-Pesa confirmation SMS to us on WhatsApp: <strong>${WHATSAPP}</strong> with your code <strong>${confirmationCode}</strong> to track your donation.
                 </p>
               </td></tr>
             </table>
