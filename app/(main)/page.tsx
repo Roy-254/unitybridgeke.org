@@ -168,19 +168,21 @@ export default async function HomePage() {
                 <div className="container-custom">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">Our Focus Areas</h2>
-                        <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">We fund projects across four key areas of need in Kenya</p>
+                        <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">We fund projects across five key areas of need in Kenya</p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
                         {focusAreas.map((area) => (
-                            <Link key={area.slug} href={`/explore?category=${area.slug}`}>
-                                <Card className="text-center cursor-pointer group hover:shadow-lg transition-all duration-200">
-                                    <CardContent className="p-8">
-                                        <div className={`w-16 h-16 mx-auto mb-4 rounded-full ${area.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                                            <area.icon className={`w-8 h-8 ${area.color}`} />
+                            <Link key={area.slug} href={`/explore?category=${area.slug}`} className="flex">
+                                <Card className="w-full h-full p-0 text-center cursor-pointer group hover:shadow-lg transition-all duration-200 flex flex-col">
+                                    <CardContent className="p-4 sm:p-6 md:p-8 flex-1 flex flex-col justify-between">
+                                        <div className="flex flex-col items-center">
+                                            <div className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 rounded-full ${area.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform shrink-0`}>
+                                                <area.icon className={`w-6 h-6 sm:w-8 h-8 ${area.color}`} />
+                                            </div>
+                                            <h3 className="font-bold text-sm sm:text-base md:text-lg text-[var(--text-primary)] mb-1 break-words">{area.name}</h3>
                                         </div>
-                                        <h3 className="font-bold text-[var(--text-primary)] mb-1">{area.name}</h3>
-                                        <p className="text-xs text-[var(--text-muted)]">View projects</p>
+                                        <p className="text-xs text-[var(--text-muted)] mt-3">View projects</p>
                                     </CardContent>
                                 </Card>
                             </Link>
