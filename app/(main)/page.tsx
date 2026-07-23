@@ -260,7 +260,7 @@ export default async function HomePage() {
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link href="/explore">
-                            <Button variant="secondary" size="lg" className="bg-white text-[var(--primary-green)] hover:bg-gray-100">
+                            <Button variant="secondary" size="lg" className="bg-white text-[var(--secondary-accent)] hover:bg-gray-100">
                                 Browse Projects
                                 <ArrowRight className="w-5 h-5" />
                             </Button>

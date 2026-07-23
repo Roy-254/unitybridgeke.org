@@ -108,33 +108,22 @@
 }
 
 /* LIGHT MODE - Default variables */
-:root {
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F8FAFC;
+:root, [data-theme="dark"] {
+  --bg-primary: #FAF9F6;
+  --bg-secondary: #FFFFFF;
   --bg-tertiary: #F1F5F9;
   --text-primary: #0F172A;
-  --text-secondary: #64748B;
+  --text-secondary: #475569;
   --text-muted: #94A3B8;
   --border-light: #E2E8F0;
   --border-medium: #CBD5E1;
-  --primary-green: #16A34A;
+  --primary-accent: #1E293B; /* Regal Navy */
+  --secondary-accent: #D97706; /* Warm Gold */
+  
+  /* Fallbacks for older references */
+  --primary-green: #1E293B; 
   --primary-red: #DC2626;
-  --primary-blue: #0891B2;
-}
-
-/* DARK MODE */
-[data-theme="dark"] {
-  --bg-primary: #0F172A;
-  --bg-secondary: #1E293B;
-  --bg-tertiary: #334155;
-  --text-primary: #F1F5F9;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --border-light: rgba(148, 163, 184, 0.2);
-  --border-medium: rgba(148, 163, 184, 0.3);
-  --primary-green: #22C55E;
-  --primary-red: #EF4444;
-  --primary-blue: #06B6D4;
+  --primary-blue: #1E293B;
 }
 
 @layer base {
