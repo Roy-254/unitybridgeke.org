@@ -19,15 +19,15 @@ interface Project {
 }
 
 // ─── Constants ───────────────────────────────────────────────────
-const AMOUNTS = [99];
+const AMOUNTS = [49, 99];
 
 const IMPACT: Record<number, string> = {
+    49: "Every little bit counts towards building a better future.",
     99: "Your small gift makes a huge difference in Kenyan lives today.",
 };
 
 function getImpact(amount: number): string {
-    if (amount >= 99) return IMPACT[99];
-    return "";
+    return IMPACT[amount] || "";
 }
 
 // ─── Phone formatter ─────────────────────────────────────────────
@@ -399,7 +399,7 @@ function DonationForm() {
                 </p>
 
                 {/* Preset grid */}
-                <div className="grid grid-cols-1 gap-2 mb-4">
+                <div className="grid grid-cols-2 gap-2 mb-4">
                     {AMOUNTS.map((a) => (
                         <button
                             key={a}
@@ -418,7 +418,7 @@ function DonationForm() {
 
 
                 {/* Impact message */}
-                {amount >= 99 && (
+                {amount >= 49 && (
                     <div className="flex items-start gap-3 bg-green-50 dark:bg-green-900/20 rounded-xl px-4 py-3 animate-fade-in">
                         <Sparkles className="w-4 h-4 text-[var(--primary-green)] shrink-0 mt-0.5" />
                         <p className="text-sm font-semibold text-[var(--primary-green)]">{impact}</p>
