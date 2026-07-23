@@ -109,40 +109,32 @@
 
 /* LIGHT MODE - Default variables */
 :root {
-  --bg-primary: #FAF9F6;
-  --bg-secondary: #FFFFFF;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
   --bg-tertiary: #F1F5F9;
   --text-primary: #0F172A;
-  --text-secondary: #475569;
+  --text-secondary: #64748B;
   --text-muted: #94A3B8;
   --border-light: #E2E8F0;
   --border-medium: #CBD5E1;
-  --primary-accent: #1E293B; /* Regal Navy */
-  --secondary-accent: #D97706; /* Warm Gold */
-  
-  /* Fallbacks for older references */
-  --primary-green: #1E293B; 
+  --primary-green: #16A34A;
   --primary-red: #DC2626;
-  --primary-blue: #1E293B;
+  --primary-blue: #0891B2;
 }
 
 /* DARK MODE */
 [data-theme="dark"] {
-  --bg-primary: #0B0F19; /* Deep Obsidian Navy */
-  --bg-secondary: #1E293B; /* Regal Navy card */
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
   --bg-tertiary: #334155;
-  --text-primary: #F8FAFC;
+  --text-primary: #F1F5F9;
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
-  --border-light: #334155;
+  --border-light: rgba(148, 163, 184, 0.2);
   --border-medium: rgba(148, 163, 184, 0.3);
-  --primary-accent: #38BDF8; /* Soft Sky Blue */
-  --secondary-accent: #F59E0B; /* Bright Amber Gold */
-  
-  /* Fallbacks for older references */
-  --primary-green: #38BDF8;
+  --primary-green: #22C55E;
   --primary-red: #EF4444;
-  --primary-blue: #38BDF8;
+  --primary-blue: #06B6D4;
 }
 
 @layer base {
@@ -157,7 +149,6 @@
 
   * {
     border-color: var(--border-light);
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 
   body {

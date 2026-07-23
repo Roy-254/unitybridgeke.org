@@ -56,10 +56,10 @@ export function Header() {
     return (
         <header
             className={cn(
-                "sticky top-0 z-50 w-full transition-all duration-300 relative text-[var(--text-primary)]",
+                "sticky top-0 z-50 w-full transition-all duration-300 relative",
                 isScrolled || mobileOpen
-                    ? "bg-[var(--bg-secondary)] dark:bg-[var(--bg-primary)] shadow-lg border-b border-[var(--border-light)]"
-                    : "bg-[var(--bg-secondary)] dark:bg-[var(--bg-primary)] border-b border-[var(--border-light)]"
+                    ? "bg-[var(--bg-primary)] border-b border-[var(--border-light)] shadow-lg"
+                    : "bg-[var(--bg-primary)] border-b border-[var(--border-light)]"
             )}
             onMouseLeave={closeDropdown}
         >
@@ -75,7 +75,7 @@ export function Header() {
                         <div className="flex flex-col leading-tight">
                             <span className="text-base xl:text-lg font-bold text-[var(--text-primary)] whitespace-nowrap hidden sm:block">Unity Bridge Kenya</span>
                             <span className="text-base font-bold text-[var(--text-primary)] sm:hidden">Unity Bridge</span>
-                            <span className="text-[10px] font-semibold text-[var(--secondary-accent)] uppercase tracking-widest hidden sm:block">Building Bridges of Hope</span>
+                            <span className="text-[10px] font-semibold text-[var(--primary-green)] uppercase tracking-widest hidden sm:block">Building Bridges of Hope</span>
                         </div>
                     </Link>
 
@@ -91,8 +91,8 @@ export function Header() {
                                     className={cn(
                                         "flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150",
                                         activeDropdown === item.label
-                                            ? "text-[var(--secondary-accent)] bg-[var(--bg-tertiary)]"
-                                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]"
+                                            ? "text-[var(--primary-green)] bg-[var(--primary-green)]/8"
+                                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
                                     )}
                                 >
                                     {item.label}
@@ -104,8 +104,8 @@ export function Header() {
                                     <button className={cn(
                                         "flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150",
                                         activeDropdown === item.label
-                                            ? "text-[var(--secondary-accent)] bg-[var(--bg-tertiary)]"
-                                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]"
+                                            ? "text-[var(--primary-green)] bg-[var(--primary-green)]/8"
+                                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
                                     )}>
                                         {item.label}
                                         <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", activeDropdown === item.label && "rotate-180")} />
@@ -122,12 +122,12 @@ export function Header() {
                     <div className="flex items-center gap-2 sm:gap-3">
                         <ThemeToggle />
                         <Link href="/donate" className="hidden sm:block" onClick={() => setActiveDropdown(null)}>
-                            <Button variant="primary" size="sm" className="font-bold shadow-md shadow-black/20 px-5">
+                            <Button variant="primary" size="sm" className="font-bold shadow-md shadow-green-900/20 px-5">
                                 Donate Now
                             </Button>
                         </Link>
                         <button
-                            className="xl:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)] transition-colors"
+                            className="xl:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-[var(--bg-secondary)] text-[var(--text-secondary)] transition-colors"
                             onClick={() => setMobileOpen(prev => !prev)}
                             aria-label="Toggle menu"
                         >
