@@ -12,10 +12,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         const baseStyles = "inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
 
         const variants = {
-            primary: "bg-[var(--secondary-accent)] text-white hover:bg-[#B45309] shadow-md hover:shadow-lg hover:-translate-y-0.5 focus-visible:ring-[var(--secondary-accent)]",
-            secondary: "border-2 border-[var(--primary-accent)] bg-transparent text-[var(--primary-accent)] hover:bg-[var(--primary-accent)] hover:text-white shadow-sm hover:shadow-md hover:-translate-y-0.5 focus-visible:ring-[var(--primary-accent)]",
-            outline: "border-2 border-[var(--border-medium)] bg-transparent text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:border-[var(--secondary-accent)] focus-visible:ring-[var(--secondary-accent)]",
-            ghost: "bg-transparent text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] focus-visible:ring-[var(--secondary-accent)]",
+            primary: "bg-[var(--secondary-accent)] text-white dark:text-gray-900 hover:opacity-90 shadow-md hover:shadow-lg hover:-translate-y-0.5 focus-visible:ring-[var(--secondary-accent)] transition-all duration-300",
+            secondary: "border-2 border-[var(--border-light)] bg-transparent text-[var(--primary-accent)] hover:bg-[var(--bg-tertiary)] shadow-sm hover:shadow-md hover:-translate-y-0.5 focus-visible:ring-[var(--primary-accent)] transition-all duration-300",
+            outline: "border-2 border-[var(--border-light)] bg-transparent text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:border-[var(--secondary-accent)] focus-visible:ring-[var(--secondary-accent)] transition-all duration-300",
+            ghost: "bg-transparent text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] focus-visible:ring-[var(--secondary-accent)] transition-all duration-300",
         };
 
         const sizes = {
