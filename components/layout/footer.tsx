@@ -14,7 +14,7 @@ export function Footer() {
                             <span className="font-bold text-[var(--text-primary)]">Unity Bridge Kenya</span>
                         </div>
                         <p className="text-sm text-[var(--text-secondary)]">
-                            A registered charity organisation building bridges of hope across Kenya — one project at a time.
+                            A charitable organisation (registration pending) building bridges of hope across Kenya — one project at a time.
                         </p>
                     </div>
 
@@ -64,7 +64,7 @@ export function Footer() {
                 </div>
 
                 <div className="pt-8 border-t border-[var(--border-light)] text-center text-sm text-[var(--text-secondary)]">
-                    <p>&copy; {new Date().getFullYear()} Unity Bridge Kenya. All rights reserved. Registered Charity Organisation.</p>
+                    <p>&copy; {new Date().getFullYear()} Unity Bridge Kenya. All rights reserved. Charitable Organisation (Registration Pending).</p>
                 </div>
             </div>
         </footer>
