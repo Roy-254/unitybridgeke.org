@@ -41,7 +41,7 @@ export default async function CampaignDetailPage({ params }: PageProps) {
 
     // Demo fallback so you can see the UI without Supabase configured
     if (!campaign) {
-        if (slug === "every-kid-studies" || slug === "clearing-hospital-bills" || slug === "impacting-lives" || slug === "sisters-shield" || slug === "restoring-our-environment") {
+        if (slug === "every-kid-studies" || slug === "clearing-hospital-bills" || slug === "impacting-lives" || slug === "sisters-shield" || slug === "restoring-our-environment" || slug === "mens-mental-health") {
             campaign = DEMO_CAMPAIGNS[slug] ?? DEMO_CAMPAIGNS["every-kid-studies"];
         } else {
             notFound();
@@ -187,6 +187,31 @@ Your donation transforms the daily reality of entire villages — giving back ti
         creator: { id: "u3", full_name: "Unity Bridge Kenya", is_verified: false, county: "Nairobi" },
         images: [
             { storage_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1200", order_index: 0 },
+        ],
+        documents: [],
+        updates: [],
+        donations: [],
+    },
+    "mens-mental-health": {
+        id: "demo-6",
+        title: "Breaking the Silence: Men's Mental Health",
+        slug: "mens-mental-health",
+        category: "community",
+        county: "Kenya",
+        story: `In Kenya, societal expectations often demand that men remain stoic and strong, leaving little room for vulnerability. This silent crisis has led to rising rates of depression, anxiety, and tragically, suicide among men who feel they have nowhere to turn.
+
+Our Men's Mental Health initiative is breaking this silence. We are funding community-based support groups, providing access to professional counselors, and creating safe spaces where men can speak openly without judgment.
+
+Your support helps subsidize therapy sessions, train peer-support leaders, and run awareness campaigns that dismantle the stigma surrounding men's mental health. Together, we can ensure that no man has to fight his battles alone.`,
+        current_amount: 0,
+        target_amount: 450000,
+        deadline: null,
+        created_at: "2026-03-10T09:00:00Z",
+        view_count: 310,
+        is_verified: true,
+        creator: { id: "u6", full_name: "Unity Bridge Kenya", is_verified: true, county: "Nairobi" },
+        images: [
+            { storage_url: "/mens-mental-health-project.png", order_index: 0 },
         ],
         documents: [],
         updates: [],

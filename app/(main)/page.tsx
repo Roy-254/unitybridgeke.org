@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-    Heart, Shield, Zap, Globe,
+    Heart, Shield, Zap, Globe, Brain,
     GraduationCap, Stethoscope, AlertCircle, Building2,
     ArrowRight, CheckCircle2, Share2, Smartphone
 } from "lucide-react";
@@ -50,6 +50,7 @@ export default async function HomePage() {
         { name: "Women's Empowerment", slug: "women_empowerment", icon: Heart, color: "text-rose-600", bgColor: "bg-rose-100 dark:bg-rose-900/30" },
         { name: "Emergency", slug: "emergency", icon: AlertCircle, color: "text-orange-600", bgColor: "bg-orange-100 dark:bg-orange-900/30" },
         { name: "Community", slug: "community", icon: Building2, color: "text-green-600", bgColor: "bg-green-100 dark:bg-green-900/30" },
+        { name: "Men's Mental Health", slug: "mens-mental-health", icon: Brain, color: "text-indigo-600", bgColor: "bg-indigo-100 dark:bg-indigo-900/30" },
     ];
 
     const howItWorks = [
@@ -171,7 +172,7 @@ export default async function HomePage() {
                         <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">We fund projects across five key areas of need in Kenya</p>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
                         {focusAreas.map((area) => (
                             <Link key={area.slug} href={`/explore?category=${area.slug}`} className="flex">
                                 <Card className="w-full h-full p-0 text-center cursor-pointer group hover:shadow-lg transition-all duration-200 flex flex-col">

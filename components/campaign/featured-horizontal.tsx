@@ -21,8 +21,8 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
 
     // We calculate horizontal scroll based on how many items we have
     // This allows the right-most tile to be fully exposed before the user finishes scrolling
-    // Precision scroll: Stops exactly when the 4th tile is fully exposed on the right.
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(projects.length - 2) * 20}%`]);
+    // We use calc(-100% + 100vw) so the scroll perfectly stops when the right edge of the content hits the right edge of the screen, regardless of the number of items.
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "calc(-100% + 100vw)"]);
 
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [shareUrl, setShareUrl] = useState("https://unitybridgeke.org/#our-impact");
@@ -188,6 +188,8 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
                             );
                         })}
                         
+                        {/* Spacer to provide padding at the very end of the scroll */}
+                        <div className="w-[5vw] md:w-[10vw] shrink-0" />
                     </motion.div>
                 </div>
             </div>
