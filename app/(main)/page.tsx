@@ -191,8 +191,44 @@ export default async function HomePage() {
                 </div>
             </section>
 
+            {/* ── Our Partners ── */}
+            <section className="py-12 md:py-16 bg-[var(--bg-primary)] border-t border-[var(--border-light)] overflow-hidden relative">
+                <div className="container-custom mb-8 text-center">
+                    <h2 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">Our Partners</h2>
+                    <p className="text-[var(--text-secondary)] mt-2">Working together to create lasting impact</p>
+                </div>
+                
+                {/* Marquee Container */}
+                <div className="relative w-full flex overflow-hidden">
+                    {/* Gradient Fades for smooth edges */}
+                    <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-10 pointer-events-none"></div>
+                    <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-10 pointer-events-none"></div>
+                    
+                    <div className="flex w-max animate-marquee items-center gap-16 md:gap-32 px-8">
+                        {/* Group 1 */}
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <div key={`partner-a-${i}`} className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+                                <div className="w-12 h-12 rounded-xl bg-[var(--bg-tertiary)] flex items-center justify-center shrink-0">
+                                    <Globe className="w-6 h-6 text-[var(--primary-green)]" />
+                                </div>
+                                <span className="text-2xl font-bold text-[var(--text-muted)] whitespace-nowrap">Global Partner {i}</span>
+                            </div>
+                        ))}
+                        {/* Group 2 (Duplicate for seamless loop) */}
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <div key={`partner-b-${i}`} className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
+                                <div className="w-12 h-12 rounded-xl bg-[var(--bg-tertiary)] flex items-center justify-center shrink-0">
+                                    <Globe className="w-6 h-6 text-[var(--primary-green)]" />
+                                </div>
+                                <span className="text-2xl font-bold text-[var(--text-muted)] whitespace-nowrap">Global Partner {i}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* ── How It Works ── */}
-            <section id="how-it-works" className="py-16 md:py-24 bg-[var(--bg-primary)]">
+            <section id="how-it-works" className="py-16 md:py-24 bg-[var(--bg-secondary)]">
                 <div className="container-custom">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">How to Support</h2>
