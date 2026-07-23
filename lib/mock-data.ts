@@ -78,4 +78,16 @@ export const MOCK_PROJECTS: FeaturedProject[] = [
         is_urgent: false,
         view_count: 0
     },
+    {
+        id: "6",
+        slug: "mens-mental-health",
+        title: "Breaking the Silence: Men's Mental Health",
+        description: "Breaking the stigma around men's mental health in Kenya. A community initiative providing safe spaces, professional counseling, and peer support groups for men navigating depression, anxiety, and societal pressures.",
+        category: CAMPAIGN_CATEGORIES.COMMUNITY,
+        images: [{ storage_url: "/mens-mental-health-project.png", order_index: 0 }],
+        current_amount: 0,
+        target_amount: 450000,
+        is_urgent: false,
+        view_count: 0
+    },
 ];
