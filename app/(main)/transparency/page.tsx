@@ -83,97 +83,7 @@ const DEMO: TransparencyData = {
     ],
 };
 
-// ─── Donut Chart Component ───────────────────────────────────
-const CATEGORY_CHART_COLORS: Record<string, string> = {
-    school_fees: "#3b82f6",
-    medical: "#ef4444",
-    emergency: "#f97316",
-    community: "#16a34a",
-    women_empowerment: "#e11d48",
-    other: "#8b5cf6",
-};
 
-function DonutChart({ slices }: { slices: { label: string; value: number; color: string }[] }) {
-    const total = slices.reduce((s, sl) => s + sl.value, 0);
-    if (total === 0) return (
-        <div className="flex items-center justify-center h-48 text-[var(--text-muted)] text-sm">No data yet</div>
-    );
-
-    let cumulative = 0;
-    const size = 200;
-    const cx = 100;
-    const cy = 100;
-    const r = 75;
-    const innerR = 50;
-    const gap = 1.5; // degrees gap between slices
-
-    function polarToXY(cx: number, cy: number, r: number, deg: number) {
-        const rad = ((deg - 90) * Math.PI) / 180;
-        return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
-    }
-
-    function slicePath(startDeg: number, endDeg: number) {
-        const start = polarToXY(cx, cy, r, startDeg + gap / 2);
-        const end = polarToXY(cx, cy, r, endDeg - gap / 2);
-        const innerStart = polarToXY(cx, cy, innerR, endDeg - gap / 2);
-        const innerEnd = polarToXY(cx, cy, innerR, startDeg + gap / 2);
-        const large = endDeg - startDeg - gap > 180 ? 1 : 0;
-        return `M ${start.x} ${start.y} A ${r} ${r} 0 ${large} 1 ${end.x} ${end.y} L ${innerStart.x} ${innerStart.y} A ${innerR} ${innerR} 0 ${large} 0 ${innerEnd.x} ${innerEnd.y} Z`;
-    }
-
-    const paths = slices.map(sl => {
-        const pct = sl.value / total;
-        const deg = pct * 360;
-        const path = slicePath(cumulative, cumulative + deg);
-        cumulative += deg;
-        return { ...sl, path, pct };
-    });
-
-    return (
-        <div className="flex flex-col md:flex-row items-center gap-8">
-            <svg width={size} height={size} className="shrink-0">
-                {paths.map(p => (
-                    <path key={p.label} d={p.path} fill={p.color} className="hover:opacity-80 transition-opacity cursor-pointer">
-                        <title>{p.label}: {(p.pct * 100).toFixed(1)}%</title>
-                    </path>
-                ))}
-                <text x={cx} y={cy - 6} textAnchor="middle" className="fill-[var(--text-primary)]" fontSize="14" fontWeight="800">{(total / 1000).toFixed(0)}K</text>
-                <text x={cx} y={cx + 10} textAnchor="middle" className="fill-[var(--text-muted)]" fontSize="10">Total (KES)</text>
-            </svg>
-            <div className="flex flex-col gap-2.5 flex-1 min-w-0">
-                {paths.map(p => (
-                    <div key={p.label} className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-sm shrink-0" style={{ background: p.color }} />
-                        <span className="text-sm text-[var(--text-secondary)] flex-1 truncate">{p.label}</span>
-                        <span className="text-sm font-bold text-[var(--text-primary)] tabular-nums">{(p.pct * 100).toFixed(1)}%</span>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-// ─── Horizontal Bar Chart ────────────────────────────────────
-function BarChart({ bars }: { bars: { label: string; value: number; max: number; color: string }[] }) {
-    return (
-        <div className="space-y-3">
-            {bars.map(b => (
-                <div key={b.label}>
-                    <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-medium text-[var(--text-secondary)]">{b.label}</span>
-                        <span className="text-sm font-bold text-[var(--text-primary)] tabular-nums">{formatCurrency(b.value)}</span>
-                    </div>
-                    <div className="h-3 w-full rounded-full bg-[var(--bg-tertiary)] overflow-hidden">
-                        <div
-                            className="h-full rounded-full transition-all duration-700 ease-out"
-                            style={{ width: `${b.max > 0 ? (b.value / b.max) * 100 : 0}%`, background: b.color }}
-                        />
-                    </div>
-                </div>
-            ))}
-        </div>
-    );
-}
 
 // ─── Page ────────────────────────────────────────────────────
 export default function TransparencyPage() {
@@ -208,22 +118,7 @@ export default function TransparencyPage() {
         fetchData(); 
     }, []);
 
-    const s = data?.stats ?? DEMO.stats;
-    const maxCategory = Math.max(s.school_fees_total, s.medical_total, s.emergency_total, s.community_total);
-    const categorySlices = [
-        { label: "School Fees", value: s.school_fees_total, color: CATEGORY_CHART_COLORS.school_fees },
-        { label: "Medical", value: s.medical_total, color: CATEGORY_CHART_COLORS.medical },
-        { label: "Emergency", value: s.emergency_total, color: CATEGORY_CHART_COLORS.emergency },
-        { label: "Community", value: s.community_total, color: CATEGORY_CHART_COLORS.community },
-        { label: "Women's Empowerment", value: s.women_empowerment_total, color: CATEGORY_CHART_COLORS.women_empowerment },
-    ];
 
-    const STAT_CARDS = [
-        { icon: TrendingUp, label: "Total Raised (All Time)", value: formatCurrency(s.total_raised), color: "var(--primary-green)", bg: "bg-green-50 dark:bg-green-900/20" },
-        { icon: Calendar, label: "Raised This Month", value: formatCurrency(s.this_month_raised), color: "#0891B2", bg: "bg-cyan-50 dark:bg-cyan-900/20" },
-        { icon: Users, label: "Individual Donors", value: s.donor_count.toLocaleString(), color: "#7c3aed", bg: "bg-violet-50 dark:bg-violet-900/20" },
-        { icon: Globe, label: "Projects Funded", value: s.projects_funded.toString(), color: "#ea580c", bg: "bg-orange-50 dark:bg-orange-900/20" },
-    ];
 
     return (
         <div className="min-h-screen bg-[var(--bg-primary)]">
@@ -269,52 +164,7 @@ export default function TransparencyPage() {
                     </div>
                 </div>
 
-                {/* ── Locked Data Section ── */}
-                <div className="space-y-10">
-                    {/* ── Top Stats ── */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    {STAT_CARDS.map(card => {
-                        const Icon = card.icon;
-                        return (
-                            <div key={card.label} className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-5 md:p-6">
-                                <div className={`w-11 h-11 rounded-xl ${card.bg} flex items-center justify-center mb-4`}>
-                                    <Icon className="w-5 h-5" style={{ color: card.color }} />
-                                </div>
-                                <p className={cn("text-2xl md:text-3xl font-extrabold text-[var(--text-primary)] font-mono transition-all duration-500", !hasDonated && "blur-md select-none")}>{card.value}</p>
-                                <p className="text-xs text-[var(--text-muted)] font-medium mt-1 leading-snug">{card.label}</p>
-                            </div>
-                        );
-                    })}
-                </div>
 
-                {/* ── Charts Row ── */}
-                <div className="grid md:grid-cols-2 gap-6">
-
-                    {/* Donut chart */}
-                    <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
-                        <h2 className="font-extrabold text-[var(--text-primary)] mb-2">Fund Allocation</h2>
-                        <p className="text-sm text-[var(--text-muted)] mb-6">How donations are distributed by category</p>
-                        <div className={cn("transition-all duration-500", !hasDonated && "blur-md select-none pointer-events-none")}>
-                            <DonutChart slices={categorySlices} />
-                        </div>
-                    </div>
-
-                    {/* Bar chart */}
-                    <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
-                        <h2 className="font-extrabold text-[var(--text-primary)] mb-2">Category Breakdown</h2>
-                        <p className="text-sm text-[var(--text-muted)] mb-6">Total KES raised per cause area</p>
-                        <div className={cn("transition-all duration-500", !hasDonated && "blur-md select-none pointer-events-none")}>
-                            <BarChart bars={[
-                                { label: "School Fees", value: s.school_fees_total, max: maxCategory, color: CATEGORY_CHART_COLORS.school_fees },
-                                { label: "Medical Bills", value: s.medical_total, max: maxCategory, color: CATEGORY_CHART_COLORS.medical },
-                                { label: "Emergency Relief", value: s.emergency_total, max: maxCategory, color: CATEGORY_CHART_COLORS.emergency },
-                                { label: "Community Projects", value: s.community_total, max: maxCategory, color: CATEGORY_CHART_COLORS.community },
-                                { label: "Women's Empowerment", value: s.women_empowerment_total, max: maxCategory, color: CATEGORY_CHART_COLORS.women_empowerment },
-                            ]} />
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* ── Active Projects ── */}
                 {(data?.activeCampaigns ?? DEMO.activeCampaigns).length > 0 && (
@@ -366,24 +216,30 @@ export default function TransparencyPage() {
                             <h2 className="text-xl font-extrabold text-[var(--text-primary)]">Latest Project Updates</h2>
                             <p className="text-sm text-[var(--text-muted)]">Real stories and progress from beneficiaries on the ground</p>
                         </div>
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="space-y-6">
                             {(data?.recentUpdates ?? DEMO.recentUpdates).map(u => (
-                                <div key={u.id} className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-5">
+                                <div key={u.id} className="flex flex-col md:flex-row gap-6 bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
                                     {u.photo_url && (
-                                        <div className="relative aspect-video rounded-xl overflow-hidden mb-4">
-                                            <Image src={u.photo_url} alt={u.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                                        <div className="relative w-full md:w-72 shrink-0 aspect-video md:aspect-[4/3] rounded-xl overflow-hidden">
+                                            <Image src={u.photo_url} alt={u.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 288px" />
                                         </div>
                                     )}
-                                    {u.campaign && (
-                                        <div className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-[var(--primary-green)]/10 text-[var(--primary-green)] mb-2">
-                                            {CATEGORY_LABELS[u.campaign.category as keyof typeof CATEGORY_LABELS] ?? u.campaign.category}
+                                    <div className="flex-1 flex flex-col justify-center">
+                                        {u.campaign && (
+                                            <div className="mb-3">
+                                                <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-[var(--primary-green)]/10 text-[var(--primary-green)]">
+                                                    {CATEGORY_LABELS[u.campaign.category as keyof typeof CATEGORY_LABELS] ?? u.campaign.category}
+                                                </span>
+                                            </div>
+                                        )}
+                                        <h3 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-3 leading-snug">{u.title}</h3>
+                                        <p className="text-base text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap">{u.content}</p>
+                                        <div className="mt-4 pt-4 border-t border-[var(--border-light)]">
+                                            <p className="text-xs font-semibold text-[var(--text-muted)]">
+                                                {new Date(u.created_at).toLocaleDateString("en-KE", { day: "numeric", month: "long", year: "numeric" })}
+                                            </p>
                                         </div>
-                                    )}
-                                    <h3 className="font-bold text-[var(--text-primary)] mb-2 leading-snug">{u.title}</h3>
-                                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed line-clamp-3">{u.content}</p>
-                                    <p className="text-xs text-[var(--text-muted)] mt-3">
-                                        {new Date(u.created_at).toLocaleDateString("en-KE", { day: "numeric", month: "long", year: "numeric" })}
-                                    </p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
