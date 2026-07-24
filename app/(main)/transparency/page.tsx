@@ -314,6 +314,7 @@ export default function TransparencyPage() {
                         </div>
                     </div>
                 </div>
+            </div>
 
             {/* ── Active Projects ── */}
                 {(data?.activeCampaigns ?? DEMO.activeCampaigns).length > 0 && (
