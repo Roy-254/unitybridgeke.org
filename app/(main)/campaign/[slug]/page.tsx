@@ -68,7 +68,12 @@ We focus on three areas of action:
 2. Drainage Channel Restoration: Clearing roadside drains of debris and rubbish to ensure water flows freely, preventing flooding and water damage.
 3. Public Space Revitalisation: Deep-cleaning and repairing schools, markets, and parks to restore dignity to public facilities.
 
-Litter and blocked drains are not just eyesores — they are public health hazards. Stagnant water breeds mosquitoes. Overflowing waste contaminates water sources. Neglected public spaces breed insecurity. Our clean-up drives create immediate, visible impact that communities can see and feel, building a culture of environmental stewardship.`,
+Litter and blocked drains are not just eyesores — they are public health hazards. Stagnant water breeds mosquitoes. Overflowing waste contaminates water sources. Neglected public spaces breed insecurity. Our clean-up drives create immediate, visible impact that communities can see and feel, building a culture of environmental stewardship.
+
+---
+**References & Context:**
+*   [UN Environment Programme (UNEP)](https://www.unep.org/regions/africa) - Reports on the massive economic and ecological value of Kenya's natural landscapes and the severe costs of deforestation.
+*   [World Bank Climate Reports](https://www.worldbank.org/en/country/kenya) - Climate risk assessments and ongoing investments in Kenya's climate resilience and landscape restoration.`,
         current_amount: 0,
         target_amount: 800000,
         deadline: null,
@@ -96,7 +101,12 @@ Many women face challenges that limit their ability to live freely and build ind
 
 While our role is primarily financial, we recognize that some situations require deeper, specialized support. In such cases, we work alongside trusted partner organizations to ensure that every woman we assist has access to the broader care and protection she may need, creating a more complete and sustainable path toward independence.
 
-Together, we are not just rebuilding lives; we are shielding the futures of Kenya's women.`,
+Together, we are not just rebuilding lives; we are shielding the futures of Kenya's women.
+
+---
+**References & Context:**
+*   [UN Women Kenya](https://africa.unwomen.org/en/where-we-are/eastern-and-southern-africa/kenya) - Outlining Kenya's commitments to end gender-based violence (GBV) and economically empower women.
+*   [Amnesty International Kenya](https://www.amnestykenya.org/) - Ongoing advocacy against rising rates of femicide and campaigns for the protection of vulnerable women.`,
         current_amount: 50000,
         target_amount: 1000000,
         deadline: null,
@@ -123,7 +133,12 @@ At Unity Bridge Kenya, our Education Initiative works to ensure that no child is
 
 From primary school tuition in rural Turkana to secondary examination fees in Nairobi's informal settlements, every donation to this initiative guarantees that a child stays enrolled, stays hopeful, and stays on the path toward their future.
 
-We believe that sustained access to education is the single greatest investment in Kenya's next generation. When you support this initiative, you are not just paying a fee — you are keeping a door open for a child who deserves every chance to succeed.`,
+We believe that sustained access to education is the single greatest investment in Kenya's next generation. When you support this initiative, you are not just paying a fee — you are keeping a door open for a child who deserves every chance to succeed.
+
+---
+**References & Context:**
+*   [UNICEF Kenya: Education](https://www.unicef.org/kenya/education) - Highlighting the "hidden costs" of education (uniforms, exams) that drive dropout rates despite free primary education.
+*   [World Bank: Education in Kenya](https://www.worldbank.org/en/country/kenya) - Tracking educational access, transition bottlenecks to secondary school, and the impact of poverty on student retention.`,
         current_amount: 350000,
         target_amount: 500000,
         deadline: null,
@@ -150,7 +165,12 @@ Our Medical Relief Initiative at Unity Bridge Kenya focuses on one of the most u
 
 We work directly with hospitals and healthcare facilities across the country to identify those most in need, verify their circumstances, and clear their outstanding bills. From maternity fees for young mothers to surgical costs for accident victims, our support goes straight to the medical institution — transparent, direct, and fully accountable.
 
-Your contribution helps free patients from hospital debt and restores dignity to families at some of the most vulnerable moments of their lives. No one should have to stay sick because they cannot afford to get well.`,
+Your contribution helps free patients from hospital debt and restores dignity to families at some of the most vulnerable moments of their lives. No one should have to stay sick because they cannot afford to get well.
+
+---
+**References & Context:**
+*   [World Health Organization (WHO)](https://www.who.int/) - Condemning the widespread practice of hospital detention for unpaid medical bills as a fundamental human rights violation.
+*   [Amnesty International](https://www.amnesty.org/) - Documenting the detention of vulnerable patients in Kenyan hospitals and advocating for their immediate release.`,
         current_amount: 180000,
         target_amount: 500000,
         deadline: null,
@@ -177,7 +197,12 @@ Unity Bridge Kenya's Community Development Initiative partners with local leader
 
 From borehole drilling and pump installation to sanitation upgrades and community resource centres, every project we fund serves hundreds of households and is designed to last for generations. The communities we work with contribute land, local knowledge, and volunteer labour — we contribute the funding that makes it all possible.
 
-Your donation transforms the daily reality of entire villages — giving back time, restoring health, and unlocking opportunity for Kenya's most underserved communities.`,
+Your donation transforms the daily reality of entire villages — giving back time, restoring health, and unlocking opportunity for Kenya's most underserved communities.
+
+---
+**References & Context:**
+*   [World Bank Economic Updates](https://www.worldbank.org/en/country/kenya) - Warning of rising poverty levels and inflation exacerbating the cost of living in Kenya.
+*   [UN Food and Agriculture Organization (FAO)](https://www.fao.org/kenya/en/) - Statistics showing the rising cost of a healthy diet and its severe impact on food security for Kenyan families.`,
         current_amount: 420000,
         target_amount: 600000,
         deadline: null,
@@ -202,7 +227,12 @@ Your donation transforms the daily reality of entire villages — giving back ti
 
 Our Men's Mental Health initiative is breaking this silence. We are funding community-based support groups, providing access to professional counselors, and creating safe spaces where men can speak openly without judgment.
 
-Your support helps subsidize therapy sessions, train peer-support leaders, and run awareness campaigns that dismantle the stigma surrounding men's mental health. Together, we can ensure that no man has to fight his battles alone.`,
+Your support helps subsidize therapy sessions, train peer-support leaders, and run awareness campaigns that dismantle the stigma surrounding men's mental health. Together, we can ensure that no man has to fight his battles alone.
+
+---
+**References & Context:**
+*   [World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response) - Data on the significant mental health treatment gap in Kenya and the impact of stigma.
+*   [Kenya Ministry of Health](https://www.health.go.ke/) - The National Suicide Prevention Strategy (2021–2026), addressing the disproportionate impact of suicide on men and the need to dismantle harmful societal expectations.`,
         current_amount: 0,
         target_amount: 450000,
         deadline: null,
