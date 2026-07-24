@@ -34,7 +34,7 @@ export default async function DonatePage({ params }: PageProps) {
 
     // Demo fallback for development
     if (!campaign) {
-        if (slug === "every-kid-studies" || slug === "clearing-hospital-bills" || slug === "impacting-lives") {
+        if (slug === "every-kid-studies" || slug === "clearing-hospital-bills" || slug === "impacting-lives" || slug === "restoring-our-environment" || slug === "sisters-shield" || slug === "mens-mental-health") {
             campaign = DEMO_CAMPAIGNS[slug] ?? DEMO_CAMPAIGNS["every-kid-studies"];
         }
     }
@@ -71,6 +71,33 @@ const DEMO_CAMPAIGNS: Record<string, any> = {
         current_amount: 420000,
         target_amount: 600000,
         images: [{ storage_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1200", order_index: 0 }],
+        creator: { full_name: "Unity Bridge Kenya", is_verified: true }
+    },
+    "restoring-our-environment": {
+        id: "demo-5",
+        title: "Restoring Our Environment",
+        slug: "restoring-our-environment",
+        current_amount: 0,
+        target_amount: 800000,
+        images: [{ storage_url: "/environment-hero.webp", order_index: 0 }],
+        creator: { full_name: "Unity Bridge Kenya", is_verified: true }
+    },
+    "sisters-shield": {
+        id: "demo-4",
+        title: "The Sisters' Shield Initiative",
+        slug: "sisters-shield",
+        current_amount: 50000,
+        target_amount: 1000000,
+        images: [{ storage_url: "/sisters-shield.webp", order_index: 0 }],
+        creator: { full_name: "Unity Bridge Kenya", is_verified: true }
+    },
+    "mens-mental-health": {
+        id: "demo-6",
+        title: "Breaking the Silence: Men's Mental Health",
+        slug: "mens-mental-health",
+        current_amount: 0,
+        target_amount: 450000,
+        images: [{ storage_url: "/mens-mental-health-project.png", order_index: 0 }],
         creator: { full_name: "Unity Bridge Kenya", is_verified: true }
     }
 };

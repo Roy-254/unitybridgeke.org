@@ -124,73 +124,107 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
                 </div>
             </div>
 
-            <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+            <div className="relative w-full flex overflow-hidden py-10">
+                {/* Shadow indicators */}
+                <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-10 pointer-events-none" />
 
+                <div className="flex w-max animate-marquee items-center gap-6 md:gap-8 px-6">
+                    {/* Group 1 */}
+                    {projects.map((project) => {
+                        const coverImage = getCoverImage(project.images);
+                        const categoryColor = CATEGORY_COLORS[project.category as keyof typeof CATEGORY_COLORS] ?? CATEGORY_COLORS.other;
+                        const categoryLabel = CATEGORY_LABELS[project.category as keyof typeof CATEGORY_LABELS] ?? project.category;
 
-                <div className="relative">
-                    {/* Shadow indicators */}
-                    <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-10 pointer-events-none" />
-                    <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-10 pointer-events-none" />
+                        return (
+                            <div key={`group1-${project.id}`} className="w-[300px] md:w-[420px] shrink-0">
+                                <Card className="overflow-hidden group min-h-[460px] flex flex-col border-[var(--border-light)] bg-[var(--bg-secondary)] shadow-sm hover:shadow-2xl transition-all duration-500 rounded-2xl items-stretch hover:-translate-y-2">
+                                    <div className="relative h-[220px] overflow-hidden shrink-0">
+                                        <Image
+                                            src={coverImage}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                                            sizes="(max-width: 768px) 300px, 420px"
+                                        />
+                                        <div className="absolute top-5 left-5">
+                                            <span className={`px-4 py-1.5 text-[9px] font-black rounded-full uppercase tracking-widest backdrop-blur-md shadow-lg border border-white/10 ${categoryColor}`}>
+                                                {categoryLabel}
+                                            </span>
+                                        </div>
+                                    </div>
 
-                    <motion.div 
-                        style={{ x: typeof window !== 'undefined' && window.innerWidth >= 768 ? x : 0 }} 
-                        className="flex gap-6 md:gap-8 pl-[5vw] md:pl-[10vw] overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scrollbar-none"
-                    >
-                        {projects.map((project) => {
-                            const coverImage = getCoverImage(project.images);
-                            const categoryColor = CATEGORY_COLORS[project.category as keyof typeof CATEGORY_COLORS] ?? CATEGORY_COLORS.other;
-                            const categoryLabel = CATEGORY_LABELS[project.category as keyof typeof CATEGORY_LABELS] ?? project.category;
-
-                            return (
-                                <motion.div 
-                                    key={project.id} 
-                                    className="w-[300px] md:w-[420px] shrink-0 snap-start"
-                                    whileHover={{ y: -8 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <Card className="overflow-hidden group min-h-[460px] flex flex-col border-[var(--border-light)] bg-[var(--bg-secondary)] shadow-sm hover:shadow-2xl transition-all duration-500 rounded-2xl items-stretch">
-                                        <div className="relative h-[220px] overflow-hidden shrink-0">
-                                            <Image
-                                                src={coverImage}
-                                                alt={project.title}
-                                                fill
-                                                className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
-                                                sizes="(max-width: 768px) 300px, 420px"
-                                            />
-                                            <div className="absolute top-5 left-5">
-                                                <span className={`px-4 py-1.5 text-[9px] font-black rounded-full uppercase tracking-widest backdrop-blur-md shadow-lg border border-white/10 ${categoryColor}`}>
-                                                    {categoryLabel}
-                                                </span>
-                                            </div>
+                                    <CardContent className="p-7 space-y-4 flex-1 flex flex-col justify-between">
+                                        <div>
+                                            <h3 className="text-base md:text-lg font-black text-[var(--text-primary)] line-clamp-1 leading-tight mb-2 group-hover:text-[var(--primary-green)] transition-colors">
+                                                {project.title.replace(/^(Upcoming|Future)\s+/i, "")}
+                                            </h3>
+                                            <p className="text-sm text-[var(--text-secondary)] line-clamp-3 leading-relaxed opacity-75">
+                                                {project.description}
+                                            </p>
                                         </div>
 
-                                        <CardContent className="p-7 space-y-4 flex-1 flex flex-col justify-between">
-                                            <div>
-                                                <h3 className="text-base md:text-lg font-black text-[var(--text-primary)] line-clamp-1 leading-tight mb-2 group-hover:text-[var(--primary-green)] transition-colors">
-                                                    {project.title.replace(/^(Upcoming|Future)\s+/i, "")}
-                                                </h3>
-                                                <p className="text-sm text-[var(--text-secondary)] line-clamp-3 leading-relaxed opacity-75">
-                                                    {project.description}
-                                                </p>
-                                            </div>
+                                        <div className="pt-6 border-t border-[var(--border-light)]/40 overflow-hidden">
+                                            <Link href={`/campaign/${project.slug}`} className="w-full">
+                                                <Button className="w-full h-12 rounded-xl bg-[var(--primary-green)] hover:bg-[var(--primary-green)]/90 text-white font-bold text-base group/btn shadow-lg shadow-green-900/10">
+                                                    Support Now
+                                                    <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform" />
+                                                </Button>
+                                            </Link>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        );
+                    })}
+                    
+                    {/* Group 2 (Duplicate for seamless loop) */}
+                    {projects.map((project) => {
+                        const coverImage = getCoverImage(project.images);
+                        const categoryColor = CATEGORY_COLORS[project.category as keyof typeof CATEGORY_COLORS] ?? CATEGORY_COLORS.other;
+                        const categoryLabel = CATEGORY_LABELS[project.category as keyof typeof CATEGORY_LABELS] ?? project.category;
 
-                                            <div className="pt-6 border-t border-[var(--border-light)]/40 overflow-hidden">
-                                                <Link href={`/campaign/${project.slug}`} className="w-full">
-                                                    <Button className="w-full h-12 rounded-xl bg-[var(--primary-green)] hover:bg-[var(--primary-green)]/90 text-white font-bold text-base group/btn shadow-lg shadow-green-900/10">
-                                                        Support Now
-                                                        <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform" />
-                                                    </Button>
-                                                </Link>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </motion.div>
-                            );
-                        })}
-                        
-                        {/* Spacer to provide padding at the very end of the scroll */}
-                        <div className="w-[5vw] md:w-[10vw] shrink-0" />
-                    </motion.div>
+                        return (
+                            <div key={`group2-${project.id}`} className="w-[300px] md:w-[420px] shrink-0">
+                                <Card className="overflow-hidden group min-h-[460px] flex flex-col border-[var(--border-light)] bg-[var(--bg-secondary)] shadow-sm hover:shadow-2xl transition-all duration-500 rounded-2xl items-stretch hover:-translate-y-2">
+                                    <div className="relative h-[220px] overflow-hidden shrink-0">
+                                        <Image
+                                            src={coverImage}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                                            sizes="(max-width: 768px) 300px, 420px"
+                                        />
+                                        <div className="absolute top-5 left-5">
+                                            <span className={`px-4 py-1.5 text-[9px] font-black rounded-full uppercase tracking-widest backdrop-blur-md shadow-lg border border-white/10 ${categoryColor}`}>
+                                                {categoryLabel}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <CardContent className="p-7 space-y-4 flex-1 flex flex-col justify-between">
+                                        <div>
+                                            <h3 className="text-base md:text-lg font-black text-[var(--text-primary)] line-clamp-1 leading-tight mb-2 group-hover:text-[var(--primary-green)] transition-colors">
+                                                {project.title.replace(/^(Upcoming|Future)\s+/i, "")}
+                                            </h3>
+                                            <p className="text-sm text-[var(--text-secondary)] line-clamp-3 leading-relaxed opacity-75">
+                                                {project.description}
+                                            </p>
+                                        </div>
+
+                                        <div className="pt-6 border-t border-[var(--border-light)]/40 overflow-hidden">
+                                            <Link href={`/campaign/${project.slug}`} className="w-full">
+                                                <Button className="w-full h-12 rounded-xl bg-[var(--primary-green)] hover:bg-[var(--primary-green)]/90 text-white font-bold text-base group/btn shadow-lg shadow-green-900/10">
+                                                    Support Now
+                                                    <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform" />
+                                                </Button>
+                                            </Link>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>

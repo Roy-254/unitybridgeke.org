@@ -107,7 +107,7 @@ export function DonateClient({ campaign }: DonateClientProps) {
     return (
         <div className="min-h-screen bg-[var(--bg-primary)]">
             {/* Top nav */}
-            <div className="border-b border-[var(--border-light)] py-4 sticky top-20 z-40 bg-[var(--bg-primary)]/90 backdrop-blur-md">
+            <div className="border-b border-[var(--border-light)] py-4 bg-[var(--bg-primary)]">
                 <div className="container-custom flex items-center justify-between">
                     <Link
                         href={`/campaign/${campaign.slug}`}
