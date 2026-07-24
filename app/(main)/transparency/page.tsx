@@ -329,10 +329,10 @@ export default function TransparencyPage() {
                             { label: "Women's Empowerment", value: s.women_empowerment_total, max: maxCategory, color: CATEGORY_CHART_COLORS.women_empowerment },
                         ]} />
                     </div>
-                    </div>
                 </div>
+            </div>
 
-                {/* ── Active Projects ── */}
+            {/* ── Active Projects ── */}
                 {(data?.activeCampaigns ?? DEMO.activeCampaigns).length > 0 && (
                     <div>
                         <div className="flex items-center justify-between mb-5">
