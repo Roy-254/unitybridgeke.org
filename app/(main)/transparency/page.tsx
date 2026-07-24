@@ -85,9 +85,97 @@ const DEMO: TransparencyData = {
     ],
 };
 
+// ─── Donut Chart Component ───────────────────────────────────
+const CATEGORY_CHART_COLORS: Record<string, string> = {
+    school_fees: "#3b82f6",
+    medical: "#ef4444",
+    emergency: "#f97316",
+    community: "#16a34a",
+    women_empowerment: "#e11d48",
+    other: "#8b5cf6",
+};
 
+function DonutChart({ slices, totalLabel }: { slices: { label: string; value: number; color: string }[], totalLabel?: string }) {
+    const total = slices.reduce((s, sl) => s + sl.value, 0);
+    if (total === 0) return (
+        <div className="flex items-center justify-center h-48 text-[var(--text-muted)] text-sm">No data yet</div>
+    );
 
-// ─── Page ────────────────────────────────────────────────────
+    let cumulative = 0;
+    const size = 200;
+    const cx = 100;
+    const cy = 100;
+    const r = 75;
+    const innerR = 50;
+    const gap = 1.5; // degrees gap between slices
+
+    function polarToXY(cx: number, cy: number, r: number, deg: number) {
+        const rad = ((deg - 90) * Math.PI) / 180;
+        return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+    }
+
+    function slicePath(startDeg: number, endDeg: number) {
+        const start = polarToXY(cx, cy, r, startDeg + gap / 2);
+        const end = polarToXY(cx, cy, r, endDeg - gap / 2);
+        const innerStart = polarToXY(cx, cy, innerR, endDeg - gap / 2);
+        const innerEnd = polarToXY(cx, cy, innerR, startDeg + gap / 2);
+        const large = endDeg - startDeg - gap > 180 ? 1 : 0;
+        return `M ${start.x} ${start.y} A ${r} ${r} 0 ${large} 1 ${end.x} ${end.y} L ${innerStart.x} ${innerStart.y} A ${innerR} ${innerR} 0 ${large} 0 ${innerEnd.x} ${innerEnd.y} Z`;
+    }
+
+    const paths = slices.map(sl => {
+        const pct = sl.value / total;
+        const deg = pct * 360;
+        const path = slicePath(cumulative, cumulative + deg);
+        cumulative += deg;
+        return { ...sl, path, pct };
+    });
+
+    return (
+        <div className="flex flex-col md:flex-row items-center gap-8">
+            <svg width={size} height={size} className="shrink-0">
+                {paths.map(p => (
+                    <path key={p.label} d={p.path} fill={p.color} className="hover:opacity-80 transition-opacity cursor-pointer">
+                        <title>{p.label}: {(p.pct * 100).toFixed(1)}%</title>
+                    </path>
+                ))}
+                <text x={cx} y={cy - 6} textAnchor="middle" className="fill-[var(--text-primary)]" fontSize="14" fontWeight="800">{total.toLocaleString()}</text>
+                <text x={cx} y={cx + 10} textAnchor="middle" className="fill-[var(--text-muted)]" fontSize="10">{totalLabel || "Total"}</text>
+            </svg>
+            <div className="flex flex-col gap-2.5 flex-1 min-w-0">
+                {paths.map(p => (
+                    <div key={p.label} className="flex items-center gap-3">
+                        <div className="w-3 h-3 rounded-sm shrink-0" style={{ background: p.color }} />
+                        <span className="text-sm text-[var(--text-secondary)] flex-1 truncate">{p.label}</span>
+                        <span className="text-sm font-bold text-[var(--text-primary)] tabular-nums">{(p.pct * 100).toFixed(1)}%</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+// ─── Horizontal Bar Chart ────────────────────────────────────
+function BarChart({ bars }: { bars: { label: string; value: number; max: number; color: string }[] }) {
+    return (
+        <div className="space-y-3">
+            {bars.map(b => (
+                <div key={b.label}>
+                    <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-[var(--text-secondary)]">{b.label}</span>
+                        <span className="text-sm font-bold text-[var(--text-primary)] tabular-nums">{b.value.toLocaleString()}</span>
+                    </div>
+                    <div className="h-3 w-full rounded-full bg-[var(--bg-tertiary)] overflow-hidden">
+                        <div
+                            className="h-full rounded-full transition-all duration-700 ease-out"
+                            style={{ width: `${b.max > 0 ? (b.value / b.max) * 100 : 0}%`, background: b.color }}
+                        />
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
 export default function TransparencyPage() {
     const [data, setData] = useState<TransparencyData | null>(null);
     const [loading, setLoading] = useState(true);
@@ -120,7 +208,13 @@ export default function TransparencyPage() {
         fetchData(); 
     }, []);
 
-
+    const impactSlices = [
+        { label: "Students Educated", value: 150, color: CATEGORY_CHART_COLORS.school_fees },
+        { label: "Patients Treated", value: 45, color: CATEGORY_CHART_COLORS.medical },
+        { label: "Families Given Water", value: 200, color: CATEGORY_CHART_COLORS.community },
+        { label: "Women Empowered", value: 120, color: CATEGORY_CHART_COLORS.women_empowerment },
+    ];
+    const maxImpact = 200;
 
     return (
         <div className="min-h-screen bg-[var(--bg-primary)]">
@@ -166,7 +260,50 @@ export default function TransparencyPage() {
                     </div>
                 </div>
 
+                {/* ── Impact Stats Section ── */}
+                <div className="space-y-10">
+                    {/* ── Top Stats ── */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        {[
+                            { icon: Users, label: "Students Educated", value: "150", color: CATEGORY_CHART_COLORS.school_fees, bg: "bg-blue-50 dark:bg-blue-900/20" },
+                            { icon: Heart, label: "Patients Treated", value: "45", color: CATEGORY_CHART_COLORS.medical, bg: "bg-red-50 dark:bg-red-900/20" },
+                            { icon: Globe, label: "Families Given Water", value: "200", color: CATEGORY_CHART_COLORS.community, bg: "bg-green-50 dark:bg-green-900/20" },
+                            { icon: TrendingUp, label: "Women Empowered", value: "120", color: CATEGORY_CHART_COLORS.women_empowerment, bg: "bg-rose-50 dark:bg-rose-900/20" },
+                        ].map(card => {
+                            const Icon = card.icon;
+                            return (
+                                <div key={card.label} className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-5 md:p-6">
+                                    <div className={`w-11 h-11 rounded-xl ${card.bg} flex items-center justify-center mb-4`}>
+                                        <Icon className="w-5 h-5" style={{ color: card.color }} />
+                                    </div>
+                                    <p className="text-2xl md:text-3xl font-extrabold text-[var(--text-primary)] font-mono">{card.value}</p>
+                                    <p className="text-xs text-[var(--text-muted)] font-medium mt-1 leading-snug">{card.label}</p>
+                                </div>
+                            );
+                        })}
+                    </div>
 
+                    {/* ── Charts Row ── */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {/* Donut chart */}
+                        <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
+                            <h2 className="font-extrabold text-[var(--text-primary)] mb-2">Lives Impacted</h2>
+                            <p className="text-sm text-[var(--text-muted)] mb-6">Distribution of beneficiaries across causes</p>
+                            <div>
+                                <DonutChart slices={impactSlices} totalLabel="Lives Changed" />
+                            </div>
+                        </div>
+
+                        {/* Bar chart */}
+                        <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
+                            <h2 className="font-extrabold text-[var(--text-primary)] mb-2">Beneficiary Breakdown</h2>
+                            <p className="text-sm text-[var(--text-muted)] mb-6">Total number of individuals supported</p>
+                            <div>
+                                <BarChart bars={impactSlices.map(s => ({ ...s, max: maxImpact }))} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             {/* ── Active Projects ── */}
                 {(data?.activeCampaigns ?? DEMO.activeCampaigns).length > 0 && (
