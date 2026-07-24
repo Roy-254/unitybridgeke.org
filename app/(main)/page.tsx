@@ -265,7 +265,7 @@ export default async function HomePage() {
             </section>
 
             {/* ── Why Give Through Us ── */}
-            <section id="about" className="py-16 md:py-24 bg-[var(--bg-secondary)]">
+            <section id="about" className="py-16 md:py-24 bg-[var(--bg-primary)] border-t border-[var(--border-light)]/50">
                 <div className="container-custom">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">Why Give Through Us?</h2>

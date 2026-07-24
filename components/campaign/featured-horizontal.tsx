@@ -70,7 +70,7 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
 
 
     return (
-        <section id="our-impact" ref={targetRef} className="relative h-[250vh] bg-[var(--bg-primary)]">
+        <section id="our-impact" ref={targetRef} className="relative bg-[var(--bg-primary)] overflow-hidden">
             {/* Header: Left-aligned text, right-aligned button, scrolls away naturally */}
             <div className="container-custom pt-16 pb-8">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-4">
