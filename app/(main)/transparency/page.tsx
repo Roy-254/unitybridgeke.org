@@ -72,8 +72,10 @@ const DEMO: TransparencyData = {
         { id: "d4", donor_name: "M-Pesa Donor", amount: 1000, currency: "KES", created_at: new Date(Date.now() - 172800000).toISOString(), campaign: { title: "Education Support Initiative", slug: "every-kid-studies" } },
     ],
     recentUpdates: [
-        { id: "u1", title: "New Classroom Materials Delivered", content: "Thanks to your support, we've delivered textbooks and stationery to 50 students this week.", photo_url: "/school-fees-project.webp", created_at: new Date().toISOString(), campaign: { title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees" } },
-        { id: "u2", title: "Emergency Relief Distribution", content: "Essential supplies reached 10 families today in our latest community outreach.", photo_url: "/environment-hero.webp", created_at: new Date(Date.now() - 172800000).toISOString(), campaign: { title: "Community Water Project", slug: "community-water", category: "community" } },
+        { id: "u0a", title: "Clean Water Access: Two New Boreholes Sunk", content: "We successfully sunk 2 new boreholes in a remote village, providing hundreds of families with reliable access to clean, safe drinking water.", photo_url: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800", created_at: new Date().toISOString(), campaign: { title: "Community Water Project", slug: "community-water", category: "community" } },
+        { id: "u0b", title: "Nourishing Students: Food Supplies Delivered", content: "To ensure students can focus on learning instead of hunger, we delivered 2 bags of maize and 2 bags of beans to support the school's feeding program.", photo_url: "/school-fees-project.webp", created_at: new Date(Date.now() - 86400000).toISOString(), campaign: { title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees" } },
+        { id: "u1", title: "New Classroom Materials Delivered", content: "Thanks to your support, we've delivered textbooks and stationery to 50 students this week.", photo_url: "/school-fees-project.webp", created_at: new Date(Date.now() - 172800000).toISOString(), campaign: { title: "Education Support Initiative", slug: "every-kid-studies", category: "school_fees" } },
+        { id: "u2", title: "Emergency Relief Distribution", content: "Essential supplies reached 10 families today in our latest community outreach.", photo_url: "/environment-hero.webp", created_at: new Date(Date.now() - 259200000).toISOString(), campaign: { title: "Community Water Project", slug: "community-water", category: "community" } },
     ],
     activeCampaigns: [
         { id: "2", title: "Medical Emergency Fund", slug: "clearing-hospital-bills", category: "medical", current_amount: 0, target_amount: 500000, images: [{ storage_url: "/medical-relief-project.webp", order_index: 0 }] },
@@ -279,7 +281,6 @@ export default function TransparencyPage() {
                     <div className="grid sm:grid-cols-2 gap-4">
                         {[
                             "Every project is verified before going live — we review documents and speak with applicants directly.",
-                            "100% of donated funds go to beneficiaries. Our operating costs are covered separately.",
                             "Donors receive an emailed update within 30 days of funds being disbursed.",
                             "This dashboard updates automatically from our live database — no manual edits.",
                             "Donors can track their specific donation anytime using their confirmation code.",
