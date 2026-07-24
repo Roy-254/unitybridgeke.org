@@ -6,10 +6,11 @@ import Image from "next/image";
 import {
     TrendingUp, Users, Heart, Globe, ArrowRight,
     Download, RefreshCw, Calendar, BarChart3,
-    CheckCircle2, AlertCircle
+    CheckCircle2, AlertCircle, Lock
 } from "lucide-react";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { CATEGORY_LABELS } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
 
 // ─── Types ──────────────────────────────────────────────────
 interface TransparencyData {
@@ -179,6 +180,7 @@ export default function TransparencyPage() {
     const [data, setData] = useState<TransparencyData | null>(null);
     const [loading, setLoading] = useState(true);
     const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+    const [hasDonated, setHasDonated] = useState(false);
 
     async function fetchData() {
         setLoading(true);
@@ -201,7 +203,10 @@ export default function TransparencyPage() {
         }
     }
 
-    useEffect(() => { fetchData(); }, []);
+    useEffect(() => { 
+        setHasDonated(localStorage.getItem("has_donated") === "true");
+        fetchData(); 
+    }, []);
 
     const s = data?.stats ?? DEMO.stats;
     const maxCategory = Math.max(s.school_fees_total, s.medical_total, s.emergency_total, s.community_total);
@@ -264,7 +269,29 @@ export default function TransparencyPage() {
                     </div>
                 </div>
 
-                {/* ── Top Stats ── */}
+                {/* ── Locked Data Section ── */}
+                <div className="relative">
+                    {!hasDonated && (
+                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[var(--bg-primary)]/40 rounded-2xl" style={{ backdropFilter: 'blur(8px)' }}>
+                            <div className="bg-[var(--bg-secondary)] border border-[var(--border-light)] p-8 rounded-2xl shadow-2xl text-center max-w-md mx-4 transform transition-all hover:scale-105 duration-300">
+                                <div className="w-16 h-16 bg-[var(--primary-green)]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Lock className="w-8 h-8 text-[var(--primary-green)]" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-2">Donor Exclusive</h3>
+                                <p className="text-[var(--text-secondary)] mb-6 text-sm">
+                                    Our live financial transparency dashboard is currently visible only to our active donors. Support any project to unlock full access to our allocation data.
+                                </p>
+                                <Link href="/explore">
+                                    <Button className="w-full font-bold h-12 shadow-[var(--primary-green)]/20 shadow-xl bg-[var(--primary-green)] hover:bg-[var(--primary-green)]/90 text-white">
+                                        Support a Project to Unlock
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                    )}
+                    
+                    <div className={cn("space-y-10 transition-all duration-500", !hasDonated && "blur-md opacity-40 select-none pointer-events-none")}>
+                        {/* ── Top Stats ── */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {STAT_CARDS.map(card => {
                         const Icon = card.icon;
@@ -301,6 +328,7 @@ export default function TransparencyPage() {
                             { label: "Community Projects", value: s.community_total, max: maxCategory, color: CATEGORY_CHART_COLORS.community },
                             { label: "Women's Empowerment", value: s.women_empowerment_total, max: maxCategory, color: CATEGORY_CHART_COLORS.women_empowerment },
                         ]} />
+                    </div>
                     </div>
                 </div>
 
