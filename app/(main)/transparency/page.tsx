@@ -211,10 +211,10 @@ export default function TransparencyPage() {
     const impactSlices = [
         { label: "Students Educated", value: 150, color: CATEGORY_CHART_COLORS.school_fees },
         { label: "Patients Treated", value: 45, color: CATEGORY_CHART_COLORS.medical },
-        { label: "Families Given Water", value: 200, color: CATEGORY_CHART_COLORS.community },
+        { label: "Men Empowered", value: 80, color: CATEGORY_CHART_COLORS.community },
         { label: "Women Empowered", value: 120, color: CATEGORY_CHART_COLORS.women_empowerment },
     ];
-    const maxImpact = 200;
+    const maxImpact = 150;
 
     return (
         <div className="min-h-screen bg-[var(--bg-primary)]">
@@ -262,44 +262,23 @@ export default function TransparencyPage() {
 
                 {/* ── Impact Stats Section ── */}
                 <div className="space-y-10">
-                    {/* ── Top Stats ── */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        {[
-                            { icon: Users, label: "Students Educated", value: "150", color: CATEGORY_CHART_COLORS.school_fees, bg: "bg-blue-50 dark:bg-blue-900/20" },
-                            { icon: Heart, label: "Patients Treated", value: "45", color: CATEGORY_CHART_COLORS.medical, bg: "bg-red-50 dark:bg-red-900/20" },
-                            { icon: Globe, label: "Families Given Water", value: "200", color: CATEGORY_CHART_COLORS.community, bg: "bg-green-50 dark:bg-green-900/20" },
-                            { icon: TrendingUp, label: "Women Empowered", value: "120", color: CATEGORY_CHART_COLORS.women_empowerment, bg: "bg-rose-50 dark:bg-rose-900/20" },
-                        ].map(card => {
-                            const Icon = card.icon;
-                            return (
-                                <div key={card.label} className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-5 md:p-6">
-                                    <div className={`w-11 h-11 rounded-xl ${card.bg} flex items-center justify-center mb-4`}>
-                                        <Icon className="w-5 h-5" style={{ color: card.color }} />
-                                    </div>
-                                    <p className="text-2xl md:text-3xl font-extrabold text-[var(--text-primary)] font-mono">{card.value}</p>
-                                    <p className="text-xs text-[var(--text-muted)] font-medium mt-1 leading-snug">{card.label}</p>
-                                </div>
-                            );
-                        })}
-                    </div>
-
                     {/* ── Charts Row ── */}
                     <div className="grid md:grid-cols-2 gap-6">
-                        {/* Donut chart */}
-                        <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
-                            <h2 className="font-extrabold text-[var(--text-primary)] mb-2">Lives Impacted</h2>
-                            <p className="text-sm text-[var(--text-muted)] mb-6">Distribution of beneficiaries across causes</p>
-                            <div>
-                                <DonutChart slices={impactSlices} totalLabel="Lives Changed" />
-                            </div>
-                        </div>
-
                         {/* Bar chart */}
                         <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
                             <h2 className="font-extrabold text-[var(--text-primary)] mb-2">Beneficiary Breakdown</h2>
                             <p className="text-sm text-[var(--text-muted)] mb-6">Total number of individuals supported</p>
                             <div>
                                 <BarChart bars={impactSlices.map(s => ({ ...s, max: maxImpact }))} />
+                            </div>
+                        </div>
+                        
+                        {/* Donut chart */}
+                        <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-light)] p-6">
+                            <h2 className="font-extrabold text-[var(--text-primary)] mb-2">Lives Impacted</h2>
+                            <p className="text-sm text-[var(--text-muted)] mb-6">Distribution of beneficiaries across causes</p>
+                            <div>
+                                <DonutChart slices={impactSlices} totalLabel="Lives Changed" />
                             </div>
                         </div>
                     </div>
