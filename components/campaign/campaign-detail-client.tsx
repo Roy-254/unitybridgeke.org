@@ -211,11 +211,16 @@ export function CampaignDetailClient({ campaign }: { campaign: Campaign }) {
 
                         {/* Initiative Story */}
                         <div className="space-y-6">
-                            {campaign.story.split("\n").filter((p: string) => p.trim()).map((para: string, i: number) => (
-                                <p key={i} className="text-[var(--text-secondary)] text-lg leading-relaxed">
-                                    {para.trim()}
-                                </p>
-                            ))}
+                            {campaign.story.split("\n").filter((p: string) => p.trim()).map((para: string, i: number) => {
+                                // Parse markdown-style links [text](url) into actual <a> tags
+                                const parsedPara = para.trim().replace(
+                                    /\[([^\]]+)\]\(([^)]+)\)/g,
+                                    '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[var(--primary-green)] font-semibold hover:underline">$1</a>'
+                                );
+                                return (
+                                    <p key={i} className="text-[var(--text-secondary)] text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: parsedPara }} />
+                                );
+                            })}
                         </div>
                     </div>
 
