@@ -68,6 +68,66 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
         }
     };
 
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const isInteractingRef = useRef(false);
+
+    useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+        
+        let animationFrameId: number;
+        
+        const scrollLoop = () => {
+            if (!isInteractingRef.current) {
+                container.scrollLeft += 1;
+                
+                // Wrap around to create an infinite loop
+                if (container.scrollLeft >= container.scrollWidth / 2) {
+                    container.scrollLeft -= container.scrollWidth / 2;
+                }
+            }
+            animationFrameId = requestAnimationFrame(scrollLoop);
+        };
+        
+        // Start the loop
+        animationFrameId = requestAnimationFrame(scrollLoop);
+        
+        // Interaction handlers
+        const handleInteractStart = () => { isInteractingRef.current = true; };
+        const handleInteractEnd = () => { isInteractingRef.current = false; };
+        
+        container.addEventListener('touchstart', handleInteractStart, { passive: true });
+        container.addEventListener('touchend', handleInteractEnd);
+        container.addEventListener('mouseenter', handleInteractStart);
+        container.addEventListener('mouseleave', handleInteractEnd);
+        
+        let scrollTimeout: NodeJS.Timeout;
+        const handleScroll = () => {
+            isInteractingRef.current = true;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                isInteractingRef.current = false;
+            }, 150); // Resume auto-scroll 150ms after the last scroll event
+            
+            // Support seamless infinite scrolling backwards and forwards when user manually scrolls
+            if (container.scrollLeft >= container.scrollWidth / 2) {
+                container.scrollLeft -= container.scrollWidth / 2;
+            } else if (container.scrollLeft <= 0) {
+                container.scrollLeft += container.scrollWidth / 2;
+            }
+        };
+        container.addEventListener('scroll', handleScroll, { passive: true });
+        
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            container.removeEventListener('touchstart', handleInteractStart);
+            container.removeEventListener('touchend', handleInteractEnd);
+            container.removeEventListener('mouseenter', handleInteractStart);
+            container.removeEventListener('mouseleave', handleInteractEnd);
+            container.removeEventListener('scroll', handleScroll);
+            clearTimeout(scrollTimeout);
+        };
+    }, []);
 
     return (
         <section id="our-impact" ref={targetRef} className="relative bg-[var(--bg-primary)] overflow-hidden">
@@ -124,12 +184,22 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
                 </div>
             </div>
 
-            <div className="relative w-full flex overflow-hidden py-10">
+            <div className="relative w-full py-10">
                 {/* Shadow indicators */}
                 <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-10 pointer-events-none" />
                 <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-10 pointer-events-none" />
 
-                <div className="flex w-max animate-marquee items-center gap-6 md:gap-8 px-6">
+                {/* Custom styling to completely hide native scrollbars across all browsers while keeping native scroll capabilities */}
+                <style dangerouslySetInnerHTML={{ __html: `
+                    .hide-scroll::-webkit-scrollbar { display: none; }
+                    .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+                `}} />
+
+                <div 
+                    ref={scrollContainerRef}
+                    className="flex w-full overflow-x-auto overflow-y-hidden hide-scroll items-center gap-6 md:gap-8 px-6 cursor-grab active:cursor-grabbing"
+                    style={{ scrollBehavior: 'auto' }} // Ensure snap wraps aren't smoothly animated natively
+                >
                     {/* Group 1 */}
                     {projects.map((project) => {
                         const coverImage = getCoverImage(project.images);
