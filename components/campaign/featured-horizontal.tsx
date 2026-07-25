@@ -72,6 +72,12 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
     const isInteractingRef = useRef(false);
 
     useEffect(() => {
+        // Disable JS auto-scroll on mobile devices to prevent performance stutters,
+        // leaving it purely as a perfectly smooth native horizontal scroll container.
+        if (typeof window !== "undefined" && window.innerWidth < 768) {
+            return;
+        }
+
         const container = scrollContainerRef.current;
         if (!container) return;
         
