@@ -76,14 +76,28 @@ export function FeaturedHorizontal({ projects }: { projects: FeaturedProject[] }
         if (!container) return;
         
         let animationFrameId: number;
+        let lastTime = performance.now();
+        let accumulator = 0;
+        const SPEED_PIXELS_PER_SECOND = 120; // Fast and smooth
         
-        const scrollLoop = () => {
+        const scrollLoop = (time: number) => {
+            const dt = time - lastTime;
+            lastTime = time;
+
             if (!isInteractingRef.current) {
-                container.scrollLeft += 1;
+                // Calculate exact fractional pixels based on time passed
+                accumulator += (SPEED_PIXELS_PER_SECOND * dt) / 1000;
                 
-                // Wrap around to create an infinite loop
-                if (container.scrollLeft >= container.scrollWidth / 2) {
-                    container.scrollLeft -= container.scrollWidth / 2;
+                // Only increment full pixels to avoid sub-pixel rendering jitter
+                if (accumulator >= 1) {
+                    const step = Math.floor(accumulator);
+                    container.scrollLeft += step;
+                    accumulator -= step;
+                    
+                    // Wrap around to create an infinite loop
+                    if (container.scrollLeft >= container.scrollWidth / 2) {
+                        container.scrollLeft -= container.scrollWidth / 2;
+                    }
                 }
             }
             animationFrameId = requestAnimationFrame(scrollLoop);
