@@ -9,9 +9,9 @@ import {
 } from "lucide-react";
 
 // ─── Config (update once numbers are live) ─────────────────────
-const WHATSAPP = "0740 797 404";
+const WHATSAPP = "0780 580 508";
 const SUPPORT_EMAIL = "donations@unitybridgeke.org";
-const SUPPORT_PHONE = "0740 797 404";
+const SUPPORT_PHONE = "0780 580 508";
 
 // ─── Copy-to-clipboard button ──────────────────────────────────
 function CopyButton({ text }: { text: string }) {

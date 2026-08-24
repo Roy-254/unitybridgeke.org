@@ -136,7 +136,7 @@ export const SOCIAL_LINKS = {
     facebook: "https://facebook.com/unitybridgekenya",
     twitter: "https://twitter.com/unitybridgekenya",
     instagram: "https://instagram.com/unitybridgekenya",
-    whatsapp: "https://wa.me/254740797404",
+    whatsapp: "https://wa.me/254780580508",
 };
 
 /**
@@ -144,7 +144,7 @@ export const SOCIAL_LINKS = {
  */
 export const CONTACT_INFO = {
     email: "support@unitybridgeke.org",
-    phone: "0740 797 404",
+    phone: "0780 580 508",
     address: "Nairobi, Kenya",
 };
 

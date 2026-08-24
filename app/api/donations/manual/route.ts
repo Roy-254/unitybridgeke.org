@@ -204,8 +204,8 @@ function buildConfirmationEmail({
 }) {
   const paybillNo = "247247";
   const accountNumber = "0708015897";
-  const WHATSAPP = "0740 797 404";
-  const SUPPORT_PHONE = "0740 797 404";
+  const WHATSAPP = "0780 580 508";
+  const SUPPORT_PHONE = "0780 580 508";
   const supportEmail = "donations@unitybridgeke.org";
 
   return `<!DOCTYPE html>
